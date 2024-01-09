@@ -1,12 +1,11 @@
 const AbstractManager = require("./AbstractManager");
 
-class ItemManager extends AbstractManager {
+class UsersManager extends AbstractManager {
   constructor() {
     super({ table: "users" });
   }
 
   insert(item) {
-    console.info(item);
     return this.database.query(
       `INSERT INTO ${this.table} (email,  username,  city,  birthday_date,  gender,  password,  role_id, valid ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
       [
@@ -29,4 +28,4 @@ class ItemManager extends AbstractManager {
     );
   }
 }
-module.exports = ItemManager;
+module.exports = UsersManager;
