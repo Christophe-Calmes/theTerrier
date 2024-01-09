@@ -6,10 +6,20 @@ class ItemManager extends AbstractManager {
   }
 
   insert(item) {
-    console.info(`item ItemManager / Method insert${item}`);
-    return this.database.query(`insert into ${this.table} (title) values (?)`, [
-      item.title,
-    ]);
+    console.info(item);
+    return this.database.query(
+      `INSERT INTO ${this.table} (email,  username,  city,  birthday_date,  gender,  password,  role_id, valid ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+      [
+        item.email,
+        item.username,
+        item.city,
+        item.birthday_date,
+        item.gender,
+        item.password,
+        item.role_id,
+        item.valid,
+      ]
+    );
   }
 
   update(item) {
@@ -19,5 +29,4 @@ class ItemManager extends AbstractManager {
     );
   }
 }
-
 module.exports = ItemManager;
