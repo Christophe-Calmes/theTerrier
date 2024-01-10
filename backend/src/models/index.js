@@ -34,7 +34,9 @@ const UsersManager = require("./UsersManager");
 
 models.item = new ItemManager();
 models.user = new UsersManager();
+
 models.item.setDatabase(pool);
+models.user.setDatabase(pool);
 
 // bonus: use a proxy to personalize error message,
 // when asking for a non existing model
