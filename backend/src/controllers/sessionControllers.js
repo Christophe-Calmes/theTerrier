@@ -3,22 +3,29 @@ const models = require("../models");
 const logIn = (req, res) => {
     const userData = req.body
     // console.log(userData);   
-
     models.user
-    .find(2)
+    .findByEmail(userData.email)
     .then(([rows]) => {
       if (rows[0] == null) {
         res.sendStatus(404);
       } else {
         // user trouvé
         const user = rows[0]
+        // console.log(user)
 
-        res.send(rows[0]);
+        if(userData.password === user.password) {
+            delete user.password;
+            res.send(user);
+        } else {
+            res.sendStatus(400);
+        }
+
+        // res.send(rows[0]);
       }
     })
     .catch((err) => {
       console.error(err);
-      res.sendStatus(500);
+      res.sendStatus(400);
     });
 };
 
