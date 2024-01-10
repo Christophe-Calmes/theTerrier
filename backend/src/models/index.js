@@ -34,8 +34,9 @@ const UsersManager = require("./UsersManager");
 
 models.item = new ItemManager();
 models.user = new UsersManager();
-
+// Permet de connecter la DB au backend
 models.item.setDatabase(pool);
+// Permet de connecter la DB au backend
 models.user.setDatabase(pool);
 
 // bonus: use a proxy to personalize error message,
