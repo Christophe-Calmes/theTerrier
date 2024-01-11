@@ -12,8 +12,8 @@ const isEmailValid = (email) => {
     /^[a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
   return regex.test(email);
 };
-const adultVerified = (date) => {
-  const years18 = 18 * 365 * 24 * 3600;
+const adultVerified = (date, age) => {
+  const years18 = age * 365 * 24 * 3600;
   const birthdayDate = Date.parse(date);
   const nowTimeStamp = Date.now();
   const intervalleTime = nowTimeStamp - birthdayDate;
