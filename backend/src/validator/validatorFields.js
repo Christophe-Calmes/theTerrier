@@ -21,4 +21,18 @@ const adultVerified = (date, age) => {
   }
   return false;
 };
-module.exports = { sizeFields, isEmailValid, adultVerified };
+const isPasswordValid = (password) => {
+  const specialCharacters = /[!@#$%&*()_+|}{:;<>?]/;
+  const numbers = /[0-9]/;
+  const upperCase = /[A-Z]/;
+  const lowerCase = /[a-z]/;
+  const validSpecialCharacters = specialCharacters.test(password);
+  const validNumbers = numbers.test(password);
+  const validUpperCase = upperCase.test(password);
+  const validLowerCase = lowerCase.test(password);
+
+  return (
+    validSpecialCharacters && validNumbers && validUpperCase && validLowerCase
+  );
+};
+module.exports = { sizeFields, isEmailValid, adultVerified, isPasswordValid };

@@ -2,6 +2,8 @@ const {
   sizeFields,
   isEmailValid,
   adultVerified,
+  isPasswordValid
+
 } = require("./validatorFields");
 
 const validatorUser = (req, res, next) => {
@@ -24,6 +26,9 @@ const validatorUser = (req, res, next) => {
   }
   if (!adultVerified(birthday_date, 18)) {
     errors.adult = "Adult only";
+  }
+  if (!isPasswordValid(password)) {
+    errors.password = "Password invalid";
   }
   if (Object.keys(errors).length === 0) {
     next();
