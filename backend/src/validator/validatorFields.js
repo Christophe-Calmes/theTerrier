@@ -1,5 +1,4 @@
 const sizeFields = (data, targetSizeMax, targetSizeMin) => {
-  console.info(data.length);
   if (data.length < targetSizeMax) {
     if (data.length > targetSizeMin) {
       return true;
@@ -16,7 +15,7 @@ const adultVerified = (date, age) => {
   const years18 = age * 365 * 24 * 3600;
   const birthdayDate = Date.parse(date);
   const nowTimeStamp = Date.now();
-  const intervalleTime = nowTimeStamp - birthdayDate;
+  const intervalleTime = (nowTimeStamp - birthdayDate)/1000;
   if (intervalleTime > years18) {
     return true;
   }

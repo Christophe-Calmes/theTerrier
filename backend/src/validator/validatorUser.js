@@ -1,4 +1,5 @@
-const { sizeFields, 
+const {
+  sizeFields,
   isEmailValid,
   adultVerified,
 } = require("./validatorFields");
