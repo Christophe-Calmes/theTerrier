@@ -8,6 +8,7 @@ const verifyPassword = async (req, res, next) => {
     const verifiedUser = await argon2.verify(dataDB.password, password);
     console.info(verifiedUser);
     if (verifiedUser) {
+      delete req.body.password;
       next();
     } else {
       res.status(401).send("It's very bad bad password !");
