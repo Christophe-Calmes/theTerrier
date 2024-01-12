@@ -8,9 +8,10 @@ const userControllers = require("./controllers/usersControllers");
 
 const validatorUser = require("./validator/validatorUser");
 const hash = require("./middlewares/hashPassword");
+const verify = require("./middlewares/verifiePassword");
 
 // Session
-router.post("/login", sessionControllers.logIn);
+router.post("/login", verify, sessionControllers.logIn);
 
 // Exemples
 router.get("/items", itemControllers.browse);
