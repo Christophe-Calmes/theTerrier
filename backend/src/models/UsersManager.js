@@ -1,4 +1,5 @@
 const AbstractManager = require("./AbstractManager");
+var jwt = require('jsonwebtoken');
 
 class UsersManager extends AbstractManager {
   constructor() {
@@ -6,7 +7,7 @@ class UsersManager extends AbstractManager {
   }
 
   findByEmail(email) {
-    return this.database.query(`select * from ${this.table} where email = ?`, [
+    return this.database.query(`SELECT * FROM ${this.table} WHERE email = ?`, [
       email,
     ]);
   }
