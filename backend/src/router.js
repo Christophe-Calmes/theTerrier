@@ -9,6 +9,7 @@ const userControllers = require("./controllers/usersControllers");
 const validatorUser = require("./validator/validatorUser");
 const hash = require("./middlewares/hashPassword");
 const verify = require("./middlewares/verifiePassword");
+const verifyToken = require("./middlewares/jsonwebtoken");
 
 // Session
 router.post("/login", verify, sessionControllers.logIn);
@@ -25,6 +26,6 @@ router.get("/users", userControllers.browse);
 router.get("/users/:id", userControllers.read);
 router.put("/users/about_me/:id", userControllers.edit);
 router.post("/users", validatorUser, hash, userControllers.add);
-router.delete("/users/:id", userControllers.destroy);
+router.delete("/users/:id", verifyToken, userControllers.destroy);
 
 module.exports = router;
