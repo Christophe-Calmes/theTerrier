@@ -7,9 +7,11 @@ const itemControllers = require("./controllers/itemControllers");
 const userControllers = require("./controllers/usersControllers");
 
 const validatorUser = require("./validator/validatorUser");
+const hash = require("./middlewares/hashPassword");
+const verify = require("./middlewares/verifiePassword");
 
 // Session
-router.post("/login", sessionControllers.logIn);
+router.post("/login", verify, sessionControllers.logIn);
 
 // Exemples
 router.get("/items", itemControllers.browse);
@@ -22,7 +24,7 @@ router.delete("/items/:id", itemControllers.destroy);
 router.get("/users", userControllers.browse);
 router.get("/users/:id", userControllers.read);
 router.put("/users/about_me/:id", userControllers.edit);
-router.post("/users", validatorUser, userControllers.add);
+router.post("/users", validatorUser, hash, userControllers.add);
 router.delete("/users/:id", userControllers.destroy);
 
 module.exports = router;
