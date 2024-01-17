@@ -1,6 +1,6 @@
 const models = require("../models");
 
-const browse = (req, res) => {
+const getAll = (req, res) => {
   models.item
     .findAll()
     .then(([rows]) => {
@@ -12,7 +12,7 @@ const browse = (req, res) => {
     });
 };
 
-const read = (req, res) => {
+const getById = (req, res) => {
   models.item
     .find(req.params.id)
     .then(([rows]) => {
@@ -28,7 +28,7 @@ const read = (req, res) => {
     });
 };
 
-const edit = (req, res) => {
+const update = (req, res) => {
   const item = req.body;
 
   // TODO validations (length, format...)
@@ -50,7 +50,7 @@ const edit = (req, res) => {
     });
 };
 
-const add = (req, res) => {
+const create = (req, res) => {
   const item = req.body;
 
   // TODO validations (length, format...)
@@ -83,9 +83,9 @@ const destroy = (req, res) => {
 };
 
 module.exports = {
-  browse,
-  read,
-  edit,
-  add,
+  getAll,
+  getById,
+  create,
+  update,
   destroy,
 };

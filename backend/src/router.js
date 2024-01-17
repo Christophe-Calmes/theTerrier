@@ -15,17 +15,17 @@ const verifyToken = require("./middlewares/jsonwebtoken");
 router.post("/login", verify, sessionControllers.logIn);
 
 // Exemples
-router.get("/items", itemControllers.browse);
-router.get("/items/:id", itemControllers.read);
-router.put("/items/:id", itemControllers.edit);
-router.post("/items", itemControllers.add);
+router.get("/items", itemControllers.getAll);
+router.get("/items/:id", itemControllers.getById);
+router.post("/items", itemControllers.create);
+router.put("/items/:id", itemControllers.update);
 router.delete("/items/:id", itemControllers.destroy);
 
 // Users routes
-router.get("/users", userControllers.browse);
-router.get("/users/:id", userControllers.read);
-router.put("/users/about_me/:id", userControllers.edit);
-router.post("/users", validatorUser, hash, userControllers.add);
-router.delete("/users/:id", verifyToken, userControllers.destroy);
+router.get("/users", userControllers.getAll);
+router.get("/users/:id", userControllers.getById);
+router.post("/users", userControllers.create);
+router.put("/users/:id", userControllers.update);
+router.delete("/users/:id", userControllers.destroy);
 
 module.exports = router;
