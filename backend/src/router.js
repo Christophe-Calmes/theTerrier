@@ -34,7 +34,7 @@ router.put(
   userControllers.update
 );
 router.delete("/users/:id", verifyToken, isRightUser, userControllers.destroy);
-// Roles routes 
+// Roles routes
 router.get("/roles", rolesControllers.getAll);
 router.get("/roles/:id", rolesControllers.getById);
 router.post("/roles", rolesControllers.create);
