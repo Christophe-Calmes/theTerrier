@@ -30,8 +30,6 @@ const getById = (req, res) => {
 
 const create = (req, res) => {
   const user = req.body;
-  // TODO validations (length, format...)
-
   models.user
     .insert(user)
     .then(([result]) => {
@@ -45,15 +43,16 @@ const create = (req, res) => {
 
 const update = (req, res) => {
   const user = req.body;
-  // TODO validations (length, format...)
   user.id = parseInt(req.params.id, 10);
+  // console.log(user, "user data");
+
   models.user
     .update(user)
     .then(([result]) => {
       if (result.affectedRows === 0) {
         res.sendStatus(404);
       } else {
-        res.sendStatus(204);
+        res.status(200).json({ msg: "updated", user });
       }
     })
     .catch((err) => {

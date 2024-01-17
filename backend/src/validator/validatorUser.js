@@ -2,13 +2,13 @@ const {
   sizeFields,
   isEmailValid,
   adultVerified,
-  isPasswordValid
-
+  isPasswordValid,
 } = require("./validatorFields");
 
 const validatorUser = (req, res, next) => {
   const errors = {};
-  const { username, city, password, email, role_id, valid, birthday_date } = req.body;
+  const { username, city, password, email, role_id, valid, birthday_date } =
+    req.body;
   if (!sizeFields(email, 60, 7)) {
     errors.emailSize = `Email size errors`;
   }
