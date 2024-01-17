@@ -1,5 +1,4 @@
 const AbstractManager = require("./AbstractManager");
-var jwt = require('jsonwebtoken');
 
 class UsersManager extends AbstractManager {
   constructor() {
