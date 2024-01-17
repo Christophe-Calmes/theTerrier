@@ -1,18 +1,17 @@
-import { createBrowserRouter, createRoutesFromElements, Routes, Route, Link, Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
-const Layout = () => {
+function Layout() {
   return (
     <>
-        <div>
-            <Link to="/"> Home </Link>
-            <Link to="/signin"> Sign-In </Link>
-        </div>
-        <div>
-            <Outlet />
-        </div>
+      <div>
+        <Link to="/"> Home </Link>
+        <Link to="/signin"> Sign-In </Link>
+      </div>
+      <div>
+        <Outlet />
+      </div>
     </>
-
-  )
+  );
 }
 
-export default Layout
+export default Layout;

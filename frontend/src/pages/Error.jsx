@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
-const Error = () => {
-  return (
-    <div>Error 404 Not Found</div>
-  )
+function Error() {
+  return <div>Error 404 Not Found</div>;
 }
 
-export default Error
+export default Error;
