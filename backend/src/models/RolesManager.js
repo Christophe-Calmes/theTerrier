@@ -14,8 +14,8 @@ class RolesManager extends AbstractManager {
 
   updateRoleLevel(role) {
     return this.database.query(
-      `UPDATE ${this.table} SET level= ? WHERE id= ?`,
-      [role.level, role.id]
+      `UPDATE ${this.table} SET name = ?, level= ? WHERE id= ?`,
+      [role.name, role.level, role.id]
     );
   }
 }
