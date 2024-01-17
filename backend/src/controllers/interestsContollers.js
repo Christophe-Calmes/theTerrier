@@ -49,7 +49,7 @@ const update = (req, res) => {
       if (result.affectedRows === 0) {
         res.sendStatus(404);
       } else {
-        res.status(200).json({ msg: "updated", user });
+        res.status(200).json({ msg: "updated", interestsData });
       }
     })
     .catch((err) => {

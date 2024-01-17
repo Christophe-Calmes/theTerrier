@@ -6,6 +6,7 @@ const sessionControllers = require("./controllers/sessionControllers");
 const itemControllers = require("./controllers/itemControllers");
 const userControllers = require("./controllers/usersControllers");
 const rolesControllers = require("./controllers/rolesControllers");
+const interestsControllers = require("./controllers/interestsContollers");
 
 const validatorUser = require("./validator/validatorUser");
 const hashPassword = require("./middlewares/hashPassword");
@@ -40,5 +41,11 @@ router.get("/roles/:id", rolesControllers.getById);
 router.post("/roles", rolesControllers.create);
 router.put("/roles/:id", rolesControllers.update);
 router.delete("/roles/:id", rolesControllers.destroy);
+// Interests routes
+router.get("/interests", interestsControllers.getAll);
+router.get("/interests/:id", interestsControllers.getById);
+router.post("/interests", interestsControllers.create);
+router.put("/interests/:id", interestsControllers.update);
+router.delete("/interests/:id", interestsControllers.destroy);
 
 module.exports = router;

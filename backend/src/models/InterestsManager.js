@@ -13,7 +13,7 @@ class InterestesManager extends AbstractManager {
 
   updateInterests(data) {
     return this.database.query(
-      `UPDATE ${this.table} SET name= ?,valid= ? WHERE id = ?`,
+      `UPDATE ${this.table} SET name= ?, valid= ? WHERE id = ?`,
       [data.name, data.valid, data.id]
     );
   }
