@@ -1,5 +1,4 @@
 const AbstractManager = require("./AbstractManager");
-var jwt = require('jsonwebtoken');
 
 class UsersManager extends AbstractManager {
   constructor() {
@@ -30,8 +29,18 @@ class UsersManager extends AbstractManager {
 
   update(user) {
     return this.database.query(
-      `UPDATE ${this.table} SET title = ? WHERE id = ?`,
-      [user.title, user.id]
+      `UPDATE ${this.table} SET email=?,  username=?,  city=?,  birthday_date=?,  gender=?,  password=?,  role_id=?, valid=? WHERE id=?`,
+      [
+        user.email,
+        user.username,
+        user.city,
+        user.birthday_date,
+        user.gender,
+        user.password,
+        user.role_id,
+        user.valid,
+        user.id,
+      ]
     );
   }
 }

@@ -1,4 +1,4 @@
-const argon2 = require('argon2');
+const argon2 = require("argon2");
 const models = require("../models");
 
 const verifyPassword = async (req, res, next) => {
@@ -9,7 +9,7 @@ const verifyPassword = async (req, res, next) => {
     if (verifiedUser) {
       delete req.body.password;
       const { id, role_id } = dataDB;
-      
+
       req.body.id = id;
       req.body.role_id = role_id;
       next();

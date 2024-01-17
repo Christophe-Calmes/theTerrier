@@ -1,6 +1,6 @@
 const models = require("../models");
 
-const browse = (req, res) => {
+const getAll = (req, res) => {
   models.user
     .findAll()
     .then(([rows]) => {
@@ -12,7 +12,7 @@ const browse = (req, res) => {
     });
 };
 
-const read = (req, res) => {
+const getById = (req, res) => {
   models.user
     .find(req.params.id)
     .then(([rows]) => {
@@ -28,18 +28,12 @@ const read = (req, res) => {
     });
 };
 
-const edit = (req, res) => {
+const create = (req, res) => {
   const user = req.body;
-  // TODO validations (length, format...)
-  user.id = parseInt(req.params.id, 10);
   models.user
-    .update(user)
+    .insert(user)
     .then(([result]) => {
-      if (result.affectedRows === 0) {
-        res.sendStatus(404);
-      } else {
-        res.sendStatus(204);
-      }
+      res.location(`/users/${result.insertId}`).sendStatus(201);
     })
     .catch((err) => {
       console.error(err);
@@ -47,14 +41,19 @@ const edit = (req, res) => {
     });
 };
 
-const add = (req, res) => {
+const update = (req, res) => {
   const user = req.body;
-  // TODO validations (length, format...)
+  user.id = parseInt(req.params.id, 10);
+  // console.log(user, "user data");
 
   models.user
-    .insert(user)
+    .update(user)
     .then(([result]) => {
-      res.location(`/users/${result.insertId}`).sendStatus(201);
+      if (result.affectedRows === 0) {
+        res.sendStatus(404);
+      } else {
+        res.status(200).json({ msg: "updated", user });
+      }
     })
     .catch((err) => {
       console.error(err);
@@ -79,9 +78,9 @@ const destroy = (req, res) => {
 };
 
 module.exports = {
-  browse,
-  read,
-  edit,
-  add,
+  getAll,
+  getById,
+  create,
+  update,
   destroy,
 };
