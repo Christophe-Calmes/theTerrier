@@ -31,13 +31,15 @@ const models = {};
 
 const ItemManager = require("./ItemManager");
 const UsersManager = require("./UsersManager");
+const RolesManager = require("./RolesManager");
 
 models.item = new ItemManager();
 models.user = new UsersManager();
+models.roles = new RolesManager();
 // Permet de connecter la DB au backend
 models.item.setDatabase(pool);
-// Permet de connecter la DB au backend
 models.user.setDatabase(pool);
+models.roles.setDatabase(pool);
 
 // bonus: use a proxy to personalize error message,
 // when asking for a non existing model

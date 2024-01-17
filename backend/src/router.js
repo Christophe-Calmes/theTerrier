@@ -5,6 +5,7 @@ const sessionControllers = require("./controllers/sessionControllers");
 
 const itemControllers = require("./controllers/itemControllers");
 const userControllers = require("./controllers/usersControllers");
+const rolesControllers = require("./controllers/rolesControllers");
 
 const validatorUser = require("./validator/validatorUser");
 const hashPassword = require("./middlewares/hashPassword");
@@ -33,5 +34,11 @@ router.put(
   userControllers.update
 );
 router.delete("/users/:id", verifyToken, isRightUser, userControllers.destroy);
+// Roles routes 
+router.get("/roles", rolesControllers.getAll);
+router.get("/roles/:id", rolesControllers.getById);
+router.post("/roles", rolesControllers.create);
+router.put("/roles/:id", rolesControllers.update);
+router.delete("/roles/:id", rolesControllers.destroy);
 
 module.exports = router;

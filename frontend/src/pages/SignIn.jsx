@@ -10,14 +10,14 @@ function SignIn() {
       <h1>SignIn</h1>
       <button
         onClick={() => {
-          console.log(isAuthenticated);
+          console.info(isAuthenticated);
         }}
       >
         Check auth
       </button>
       <button
         onClick={() => {
-          console.log(user);
+          console.info(user);
         }}
       >
         Check user
