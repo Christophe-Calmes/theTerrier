@@ -6,6 +6,8 @@ const sessionControllers = require("./controllers/sessionControllers");
 const itemControllers = require("./controllers/itemControllers");
 const userControllers = require("./controllers/usersControllers");
 const rolesControllers = require("./controllers/rolesControllers");
+const interestsControllers = require("./controllers/interestsContollers");
+const relationshipControllers = require("./controllers/relationshipController");
 
 const validatorUser = require("./validator/validatorUser");
 const hashPassword = require("./middlewares/hashPassword");
@@ -34,11 +36,41 @@ router.put(
   userControllers.update
 );
 router.delete("/users/:id", verifyToken, isRightUser, userControllers.destroy);
-// Roles routes 
+// Roles routes
 router.get("/roles", rolesControllers.getAll);
 router.get("/roles/:id", rolesControllers.getById);
 router.post("/roles", rolesControllers.create);
 router.put("/roles/:id", rolesControllers.update);
-router.delete("/roles/:id", rolesControllers.destroy);
+router.delete("/roles/:id", verifyToken, rolesControllers.destroy);
+// Interests routes
+router.get("/interests", interestsControllers.getAll);
+router.get("/interests/:id", interestsControllers.getById);
+router.post("/interests", interestsControllers.create);
+router.put("/interests/:id", interestsControllers.update);
+router.delete("/interests/:id", verifyToken, interestsControllers.destroy);
+// Relationship routes
+router.get("/relationship", relationshipControllers.getAll);
+router.get("/relationship/:id", relationshipControllers.getById);
+router.post("/relationship/addfriend", relationshipControllers.addfriend);
+router.post(
+  "/relationship/addblockuser",
+  relationshipControllers.addBlockedUser
+);
+router.post(
+  "/relationship/addreportuser",
+  relationshipControllers.addReportUser
+);
+router.delete(
+  "/relationship/friend/:id",
+  relationshipControllers.destroyeRelationWithUser
+);
+router.delete(
+  "/relationship/blocked/:id",
+  relationshipControllers.destroyeRelationWithUserBloked
+);
+router.delete(
+  "/relationship/report/:id",
+  relationshipControllers.destroyeRelationWithUserReport
+);
 
 module.exports = router;

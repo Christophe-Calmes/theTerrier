@@ -32,15 +32,20 @@ const models = {};
 const ItemManager = require("./ItemManager");
 const UsersManager = require("./UsersManager");
 const RolesManager = require("./RolesManager");
+const InterestsManager = require("./InterestsManager");
+const RelationshipManager = require("./RelationshipsManager");
 
 models.item = new ItemManager();
 models.user = new UsersManager();
 models.roles = new RolesManager();
+models.interests = new InterestsManager();
+models.relationship = new RelationshipManager();
 // Permet de connecter la DB au backend
 models.item.setDatabase(pool);
 models.user.setDatabase(pool);
 models.roles.setDatabase(pool);
-
+models.interests.setDatabase(pool);
+models.relationship.setDatabase(pool);
 // bonus: use a proxy to personalize error message,
 // when asking for a non existing model
 
