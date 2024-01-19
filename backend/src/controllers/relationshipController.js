@@ -12,7 +12,6 @@ const getAll = (req, res) => {
     });
 };
 const getById = (req, res) => {
-  console.info(req.params.id);
   models.relationship
     .findByIdUser(req.params.id)
     .then(([rows]) => {
@@ -85,7 +84,6 @@ const destroyeRelationWithUser = (req, res) => {
   const relation = [];
   relation.me_id = parseInt(req.params.id, 10);
   relation.friend_id = req.body.friend_id;
-  console.info(relation);
   models.relationship
     .deleteRelation(relation)
     .then(([result]) => {
@@ -104,7 +102,6 @@ const destroyeRelationWithUserBloked = (req, res) => {
   const relation = [];
   relation.me_id = parseInt(req.params.id, 10);
   relation.friend_id = req.body.friend_id;
-  console.info(relation);
   models.relationship
     .deleteBlocked(relation)
     .then(([result]) => {
@@ -123,7 +120,6 @@ const destroyeRelationWithUserReport = (req, res) => {
   const relation = [];
   relation.me_id = parseInt(req.params.id, 10);
   relation.friend_id = req.body.friend_id;
-  console.info(relation);
   models.relationship
     .deleteReport(relation)
     .then(([result]) => {
