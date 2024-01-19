@@ -20,7 +20,7 @@ class RelationshipManager extends AbstractManager {
 
   insertBlocked(relation) {
     return this.database.query(
-      `INSERT INTO ${this.table}(friend_id, me_id, blocked, status) VALUES (?, ?, 1, 1)`,
+      `INSERT INTO ${this.table}(friend_id, me_id, blocked, status) VALUES (?, ?, 1, 0)`,
       [relation.friend_id, relation.me_id]
     );
   }

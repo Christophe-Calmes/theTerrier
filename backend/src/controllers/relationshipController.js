@@ -28,9 +28,9 @@ const getById = (req, res) => {
     });
 };
 const addfriend = (req, res) => {
-  const relation = req.body;
-  relation.id_me = parseInt(req.params.me_id, 10);
-  relation.friend_id = parseInt(req.params.friend_id, 10);
+  const relation = [];
+  relation.friend_id = req.body.friend_id;
+  relation.me_id = req.body.me_id;
   models.relationship
     .insertFriend(relation)
     .then(([result]) => {
@@ -46,9 +46,9 @@ const addfriend = (req, res) => {
     });
 };
 const addBlockedUser = (req, res) => {
-  const relation = req.body;
-  relation.id_me = parseInt(req.params.me_id, 10);
-  relation.friend_id = parseInt(req.params.friend_id, 10);
+  const relation = [];
+  relation.friend_id = req.body.friend_id;
+  relation.me_id = req.body.me_id;
   models.relationship
     .insertBlocked(relation)
     .then(([result]) => {
@@ -64,9 +64,9 @@ const addBlockedUser = (req, res) => {
     });
 };
 const addReportUser = (req, res) => {
-  const relation = req.body;
-  relation.id_me = parseInt(req.params.me_id, 10);
-  relation.friend_id = parseInt(req.params.friend_id, 10);
+  const relation = [];
+  relation.friend_id = req.body.friend_id;
+  relation.me_id = req.body.me_id;
   models.relationship
     .insertReport(relation)
     .then(([result]) => {
@@ -83,9 +83,9 @@ const addReportUser = (req, res) => {
 };
 const destroyeRelationWithUser = (req, res) => {
   const relation = [];
-  relation.id_me = parseInt(req.params.id, 10);
+  relation.me_id = parseInt(req.params.id, 10);
   relation.friend_id = req.body.friend_id;
-
+  console.info(relation);
   models.relationship
     .deleteRelation(relation)
     .then(([result]) => {
@@ -100,11 +100,11 @@ const destroyeRelationWithUser = (req, res) => {
       res.sendStatus(500);
     });
 };
-const destroyeRelationWithUserBloked = () => {
-  const relation = req.body;
-
-  relation.id_me = parseInt(req.params.me_id, 10);
-  relation.friend_id = parseInt(req.params.friend_id, 10);
+const destroyeRelationWithUserBloked = (req, res) => {
+  const relation = [];
+  relation.me_id = parseInt(req.params.id, 10);
+  relation.friend_id = req.body.friend_id;
+  console.info(relation);
   models.relationship
     .deleteBlocked(relation)
     .then(([result]) => {
@@ -119,10 +119,11 @@ const destroyeRelationWithUserBloked = () => {
       res.sendStatus(500);
     });
 };
-const destroyeRelationWithUserReport = () => {
-  const relation = req.body;
-  relation.id_me = parseInt(req.params.me_id, 10);
-  relation.friend_id = parseInt(req.params.friend_id, 10);
+const destroyeRelationWithUserReport = (req, res) => {
+  const relation = [];
+  relation.me_id = parseInt(req.params.id, 10);
+  relation.friend_id = req.body.friend_id;
+  console.info(relation);
   models.relationship
     .deleteReport(relation)
     .then(([result]) => {

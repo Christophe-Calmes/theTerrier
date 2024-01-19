@@ -57,7 +57,7 @@ router.post(
   relationshipControllers.addBlockedUser
 );
 router.post(
-  "/relationship/addblockuser",
+  "/relationship/addreportuser",
   relationshipControllers.addReportUser
 );
 router.delete(
