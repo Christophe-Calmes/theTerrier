@@ -27,7 +27,8 @@ router.delete("/items/:id", itemControllers.destroy);
 // Users routes
 router.get("/users", userControllers.getAll);
 router.get("/users/:id", userControllers.getById);
-router.post("/users", validatorUser, hashPassword, userControllers.create);
+router.post("/users", hashPassword, userControllers.create);
+// router.post("/users", validatorUser, hashPassword, userControllers.create);
 router.put(
   "/users/:id",
   verifyToken,
