@@ -10,8 +10,45 @@ const SignUp = () => {
     username: "",
     password: "",
   };
-  const onSubmit = (values) => {
+  const onSubmit = async (values) => {
+    const objet = {}
+
     console.log("onSubmit", values);
+
+    objet.email = values.email
+    objet.username = values.username
+    objet.city = values.city
+    objet.birthday_date = values.birthday_date
+    objet.gender = values.gender
+    objet.password = values.password
+    objet.role_id = 1
+    objet.valid = 1
+
+    console.log(objet)
+
+    try {
+      const response = await fetch("http://localhost:5000/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(objet),
+      });
+  
+      if (!response.ok) {
+        // Handle the error here, e.g., show an error message to the user
+        console.error("Error:", response.statusText);
+        return;
+      }
+  
+      // Assuming the backend returns a JSON response, you can parse it
+      const responseData = await response.json();
+      console.log("Success:", responseData);
+    } catch (error) {
+      // Handle any fetch-related errors here
+      console.error("Fetch error:", error);
+    }
+
   };
 
   const validationSchema = Yup.object({
@@ -56,14 +93,19 @@ const SignUp = () => {
                 </div>
                 {/* birthdate */}
                 <div className="field">
-                  <Field name="birthdate" placeholder="Date of birth" />
+                  <Field name="birthday_date" placeholder="Date of birth" />
                   <div className="error">
-                    <ErrorMessage name="birthdate" component="span" />
+                    <ErrorMessage name="birthday_date" component="span" />
                   </div>
                 </div>
                 {/* gender */}
                 <div className="field">
-                  <Field name="gender" placeholder="Gender" />
+                  {/* <Field name="gender" placeholder="Gender" /> */}
+                    <Field as="select" name="gender">
+                      <option value="0">Choose a gender</option>
+                      <option value="1">Male</option>
+                      <option value="2">Female</option>
+                    </Field>
                   <div className="error">
                     <ErrorMessage name="gender" component="span" />
                   </div>
