@@ -33,7 +33,7 @@ const create = (req, res) => {
   models.user
     .insert(user)
     .then(([result]) => {
-      res.location(`/users/${result.insertId}`).sendStatus(201);
+      res.location(`/users/${result.insertId}`).status(201).json({ id: result.insertId, message: "User created successfully." });
     })
     .catch((err) => {
       console.error(err);
