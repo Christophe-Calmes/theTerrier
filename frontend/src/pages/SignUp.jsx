@@ -1,8 +1,7 @@
-import styles from './styles/signup.module.css';
-import signupIMG from '../assets/images/signup.png'
-
 import { Formik, Form, ErrorMessage, Field } from "formik";
 import * as Yup from "yup";
+import styles from "./styles/signup.module.css";
+import signupIMG from "../assets/images/signup.png";
 
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -66,7 +65,7 @@ const SignUp = () => {
   });
   return (
     <div className={styles.signup_container}>
-        <div className={styles.left_part}>
+      <div className={styles.left_part}>
         <h1 className={styles.title}>Register</h1>
         <div className={styles.form_container}>
           <Formik
@@ -129,14 +128,22 @@ const SignUp = () => {
                 </div>
                 {/* password */}
                 <div className="field">
-                  <Field name="password" placeholder="Password" type="password" />
+                  <Field
+                    name="password"
+                    placeholder="Password"
+                    type="password"
+                  />
                   <div className="error">
                     <ErrorMessage name="password" component="span" />
                   </div>
                 </div>
                 {/* confirm password */}
                 <div className="field">
-                  <Field name="password2" placeholder="Confirm Password" type="password" />
+                  <Field
+                    name="password2"
+                    placeholder="Confirm Password"
+                    type="password"
+                  />
                   <div className="error">
                     <ErrorMessage name="password2" component="span" />
                   </div>
@@ -147,14 +154,18 @@ const SignUp = () => {
             )}
           </Formik>
         </div>
-      </div>   
+      </div>
       <div className={styles.right_part}>
-          <div className={styles.wrapper_image}>
-            <img src={signupIMG} className={styles.image_right} alt="image signup" />
-          </div>
+        <div className={styles.wrapper_image}>
+          <img
+            src={signupIMG}
+            className={styles.image_right}
+            alt="image signup"
+          />
+        </div>
       </div>
     </div>
   );
-};
+}
 
 export default SignUp;

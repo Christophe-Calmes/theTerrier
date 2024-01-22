@@ -9,6 +9,7 @@ const rolesControllers = require("./controllers/rolesControllers");
 const interestsControllers = require("./controllers/interestsContollers");
 const relationshipControllers = require("./controllers/relationshipController");
 const haveInterestControllers = require("./controllers/haveInterestsController");
+const messagesControllers = require("./controllers/messagesController");
 
 const validatorUser = require("./validator/validatorUser");
 const hashPassword = require("./middlewares/hashPassword");
@@ -82,5 +83,10 @@ router.delete(
   "/haveinterests/:id",
   haveInterestControllers.destroyHaveInterest
 );
+// messages
+router.get("/messages", messagesControllers.getAll);
+router.get("/privatechat", messagesControllers.chatMessages);
+router.delete("/message/:id", messagesControllers.destroy);
+router.post("/messages", messagesControllers.addMessages);
 
 module.exports = router;
