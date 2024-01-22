@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 // create context
 export const AuthContext = createContext(null);
@@ -8,21 +8,29 @@ function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(null);
 
-  const login = (jwtToken) => {
+  const login = (jwtToken, userData) => {
+    console.log(userData, "auth provider userData");
     setIsAuthenticated(true);
-    // setCurrentUser();
-    // Save the JWT in local storage
+    setCurrentUser(userData);
     localStorage.setItem("jwtToken", jwtToken);
   };
 
   const logout = () => {
     setIsAuthenticated(false);
     setCurrentUser(null);
+    localStorage.removeItem("jwtToken");
   };
+
+  useEffect(() => {
+    const jwtToken = localStorage.getItem("jwtToken");
+    if (jwtToken) {
+      setIsAuthenticated(true);
+    }
+  }, []);
 
   return (
     <AuthContext.Provider
-      value={{ setCurrentUser, isAuthenticated, login, logout }}
+      value={{ currentUser, isAuthenticated, login, logout }}
     >
       {children}
     </AuthContext.Provider>

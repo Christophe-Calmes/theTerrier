@@ -7,13 +7,18 @@ const logIn = (req, res) => {
   console.info(userData, "Login: userData");
   /* JWT generation */
   const jwtToken = jwt.sign(
-    { id: userData.id, roleUser: userData.role_id },
+    {
+      id: userData.id,
+      username: userData.username,
+      email: userData.email,
+      roleUser: userData.role_id,
+    },
     jwtKey,
     {
       expiresIn: "7d",
     }
   );
-  res.status(200).json({ jwtToken, message: "connected" });
+  res.status(200).json({ message: "connected", jwtToken, userData });
 };
 
 module.exports = {

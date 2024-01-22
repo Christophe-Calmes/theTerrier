@@ -3,7 +3,8 @@ import { useAuthContext } from "../../context/AuthProvider";
 import "./Navbar.scss";
 
 export default function Navbar() {
-  const { currentUser, isAuthenticated, login, logout } = useAuthContext();
+  const { currentUser, isAuthenticated, logout } = useAuthContext();
+  console.log(currentUser);
   console.log(isAuthenticated);
 
   return (
@@ -31,11 +32,14 @@ export default function Navbar() {
 
         {isAuthenticated && (
           <div className="user">
-            <div className="user-name">
-              <i className="bi bi-person-circle" />
-              Moi
-              {/* {currentUser.username} */}
-            </div>
+            {currentUser && (
+              // {`/users/${currentUser.id}`}
+              <NavLink to={`/users/profile`}>
+                <i className="bi bi-person-circle" />
+                {currentUser.email}
+              </NavLink>
+            )}
+
             <div className="user-logout">
               <button onClick={logout}>Logout</button>
             </div>

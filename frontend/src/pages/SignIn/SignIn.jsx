@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import "./SignIn.scss";
 
 function SignIn() {
-  const { currentUser, isAuthenticated, login, logout } = useAuthContext();
+  const { currentUser, isAuthenticated, login } = useAuthContext();
 
   const initialValues = {
     email: "",
@@ -27,9 +27,10 @@ function SignIn() {
 
       if (response.ok) {
         // Authentication successful
-        const jwtToken = await response.json();
-        console.warn("Login successful:", jwtToken);
-        login(jwtToken);
+        const data = await response.json();
+        console.warn("Login successful:", data);
+        const { jwtToken, userData } = data;
+        login(jwtToken, userData);
         navigate("/");
       } else {
         // Authentication failed
