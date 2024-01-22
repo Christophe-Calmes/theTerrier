@@ -35,6 +35,7 @@ const RolesManager = require("./RolesManager");
 const InterestsManager = require("./InterestsManager");
 const RelationshipManager = require("./RelationshipsManager");
 const HaveInterestsManager = require("./haveInterestsManager");
+const MessagesManager = require("./MessagesManager");
 
 models.item = new ItemManager();
 models.user = new UsersManager();
@@ -42,6 +43,7 @@ models.roles = new RolesManager();
 models.interests = new InterestsManager();
 models.haveinterests = new HaveInterestsManager();
 models.relationship = new RelationshipManager();
+models.messages = new MessagesManager();
 
 // Permet de connecter la DB au backend
 models.item.setDatabase(pool);
@@ -50,6 +52,7 @@ models.roles.setDatabase(pool);
 models.interests.setDatabase(pool);
 models.haveinterests.setDatabase(pool);
 models.relationship.setDatabase(pool);
+models.messages.setDatabase(pool);
 
 // bonus: use a proxy to personalize error message,
 // when asking for a non existing model
