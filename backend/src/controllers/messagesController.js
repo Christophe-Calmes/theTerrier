@@ -28,6 +28,7 @@ const destroy = (req, res) => {
 };
 const addMessages = (req, res) => {
   const message = req.body;
+    console.info(message);
   models.messages
     .insertMessage(message)
     .then(([result]) => {
@@ -42,8 +43,8 @@ const chatMessages = (req, res) => {
   const paramMessage = req.body;
   models.messages
     .privateChat(paramMessage)
-    .then(([result]) => {
-      res.location(`/messages/${result.insertId}`).sendStatus(201);
+    .then(([rows]) => {
+      res.send(rows);
     })
     .catch((err) => {
       console.error(err);
