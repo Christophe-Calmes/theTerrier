@@ -4,6 +4,12 @@ import signupIMG from '../assets/images/signup.png'
 import { Formik, Form, ErrorMessage, Field } from "formik";
 import * as Yup from "yup";
 
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+
+import { format } from 'date-fns';
+
+
 const SignUp = () => {
   const initialValues = {
     email: "",
@@ -18,7 +24,7 @@ const SignUp = () => {
     objet.email = values.email
     objet.username = values.username
     objet.city = values.city
-    objet.birthday_date = values.birthday_date
+    objet.birthday_date = format(values.date, 'yyyy-MM-dd');
     objet.gender = values.gender
     objet.password = values.password
     objet.role_id = 1
@@ -93,7 +99,18 @@ const SignUp = () => {
                 </div>
                 {/* birthdate */}
                 <div className="field">
-                  <Field name="birthday_date" placeholder="Date of birth" />
+                  <Field name="date">
+                    {({ field, form }) => (
+                      <DatePicker
+                        id="date"
+                        {...field}
+                        selected={field.value}
+                        onChange={(date) => form.setFieldValue(field.name, date)}
+                        dateFormat='yyyy-MM-dd'
+
+                      />
+                    )}
+                  </Field>
                   <div className="error">
                     <ErrorMessage name="birthday_date" component="span" />
                   </div>
