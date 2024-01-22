@@ -1,16 +1,43 @@
 import { useAuthContext } from "../../context/AuthProvider";
 import { Formik, Form, ErrorMessage, Field } from "formik";
+import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import "./SignIn.scss";
 
 function SignIn() {
-  const { user, isAuthenticated, login, logout } = useAuthContext();
+  const { currentUser, isAuthenticated, login, logout } = useAuthContext();
+
   const initialValues = {
     email: "",
     password: "",
   };
-  const onSubmit = (values) => {
+
+  const navigate = useNavigate();
+
+  const handleLogin = async (values) => {
     console.info("onSubmit", values);
+    try {
+      const response = await fetch("http://localhost:5000/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
+
+      if (response.ok) {
+        // Authentication successful
+        const jwtToken = await response.json();
+        console.warn("Login successful:", jwtToken);
+        login(jwtToken);
+        navigate("/");
+      } else {
+        // Authentication failed
+        console.error("Login failed:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+    }
   };
 
   const validationSchema = Yup.object({
@@ -20,7 +47,7 @@ function SignIn() {
     password: Yup.string().required("Password is required"),
   });
 
-  console.log(user);
+  console.log(currentUser);
 
   return (
     <div className="signIn-container">
@@ -28,7 +55,7 @@ function SignIn() {
       <div className="signIn-form">
         <Formik
           initialValues={initialValues}
-          onSubmit={onSubmit}
+          onSubmit={handleLogin}
           validationSchema={validationSchema}
         >
           {() => (

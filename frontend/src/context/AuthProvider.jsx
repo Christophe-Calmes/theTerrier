@@ -5,21 +5,25 @@ export const AuthContext = createContext(null);
 
 // the provider
 function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(null);
 
-  const login = (email) => {
+  const login = (jwtToken) => {
     setIsAuthenticated(true);
-    setUser(email);
+    // setCurrentUser();
+    // Save the JWT in local storage
+    localStorage.setItem("jwtToken", jwtToken);
   };
 
   const logout = () => {
     setIsAuthenticated(false);
-    setUser(null);
+    setCurrentUser(null);
   };
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, login, logout }}>
+    <AuthContext.Provider
+      value={{ setCurrentUser, isAuthenticated, login, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );
