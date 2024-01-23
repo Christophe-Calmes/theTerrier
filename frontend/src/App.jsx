@@ -5,13 +5,12 @@ import {
   Route,
 } from "react-router-dom";
 import Feed from "@pages/Feed";
-import SignIn from "@pages/SignIn";
+import SignIn from "@pages/SignIn/SignIn";
 import SignUp from "@pages/SignUp";
 import Profile from "@pages/Profile";
 import Admin from "@pages/Admin";
 import Layout from "@components/Layout";
 import Home from "./pages/Home";
-
 
 import ProtectedRoute from "@components/ProtectedRoute";
 
@@ -24,11 +23,11 @@ function App() {
         <Route index element={<Home />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
-          <Route element={<ProtectedRoute/>}>
-            <Route path="/feed" element={<Feed />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/admin" element={<Admin />} />    
-          </Route>
+        <Route element={<ProtectedRoute />}>
+          <Route path="/feed" element={<Feed />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/admin" element={<Admin />} />
+        </Route>
         <Route path="*" element={<p>There's nothing here: 404!</p>} />
       </Route>
     )
