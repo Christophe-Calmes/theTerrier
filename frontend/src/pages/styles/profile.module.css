@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@200&family=Nokora&display=swap');
+.contenerRow {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    justify-content: space-around;
+}
+.contenerWrap {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    font-family: 'Nokora', sans-serif;
+}
+
+.contenerCol {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    align-content: space-around;
+}
+.buttonApplication {
+    width: 10vw;
+    font-size: 1em;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 28px; /* 140% */
+    letter-spacing: 0.2px;
+    text-align: center;
+    background: #6B240C;
+    border: 0.5px solid #9a9696;
+    border-radius: 20px;
+    padding: 0.5em 1em;
+    margin-bottom: 1em;
+    font-weight: 600;
+    color: #fefbfb;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    font-family: 'Montserrat Alternates', sans-serif;
+    &:hover {
+        background: #9a9696;
+        color: #FFF;
+    }
+}
+.listProfil {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+}
+.listProfil li {
+    list-style: none;
+    font-family: 'Nokora', sans-serif;
+}
+.title1 {
+    font-family: 'Montserrat Alternates', sans-serif;
+    text-align: center;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+.bubble {
+    background-color: #F5CCA0;
+    padding: 1em;
+    border-radius: 150px;
+    margin: 1em;
+    text-align: center;
+    width: 15vw;
+    color: #994D1C;
+}
+.borderConteneur {
+    border-radius: 1.3125rem;
+    border: 1.2px solid #E1DEDB;
+    box-shadow: 2px 4px 8px 0px rgba(0, 0, 0, 0.26);
+    width: 45vw;
+    height: 80vh;
+}
+.textDescription {
+    color: #994D1C;
+    -webkit-text-stroke-width: 1.2999999523162842;
+    -webkit-text-stroke-color: #E1DEDB;
+    font-family: Montserrat;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 1.875rem;
+    letter-spacing: 0.0625rem;
+    margin: 1.5em;
+    text-align: justify;
+}
+.titleDescription {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    text-align: center;
+    color: #6B240C;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-family: Montserrat;
+    font-size: 1.5625rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 1.875rem;
+    letter-spacing: 0.0625rem;
+}
+.titleName {
+    color: #6B240C;
+    text-align: center;
+    font-family: Nokora;
+    font-size: 3rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.875rem; 
+    letter-spacing: 0.0625rem; 
+}
+.info {
+    color: #E48F45;
+    font-family: Nokora;
+    font-size: 1.625rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.875rem; 
+    letter-spacing: 0.0625rem;
+}
