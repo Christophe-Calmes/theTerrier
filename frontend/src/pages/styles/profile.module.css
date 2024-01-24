@@ -59,6 +59,17 @@
     list-style: none;
     font-family: 'Nokora', sans-serif;
 }
+.listForm {
+    list-style: none;
+    font-family: 'Nokora', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-content: left;
+    align-items: normal;
+}
+.listForm li {
+    margin-bottom: 1em;
+}
 .title1 {
     font-family: 'Montserrat Alternates', sans-serif;
     text-align: center;
@@ -126,4 +137,21 @@
     font-weight: 400;
     line-height: 1.875rem; 
     letter-spacing: 0.0625rem;
+}
+.alignCenter {
+    text-align: center;
+}
+.select {
+    background-color: #F5CCA0;
+}
+.rigthButton {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-end;
+}
+aside .buttonApplication   {
+    width: 2vw;
+    text-align: center;
+    font-size: 0.9em;
+    border-radius: 50%;
 }
