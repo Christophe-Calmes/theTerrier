@@ -10,7 +10,7 @@ import SignUp from "@pages/SignUp";
 import Profile from "@pages/Profile";
 import Admin from "@pages/Admin";
 import Layout from "@components/Layout";
-import Home from "./pages/Home";
+import Home from "./pages/Home/Home";
 
 import ProtectedRoute from "@components/ProtectedRoute";
 
@@ -21,6 +21,7 @@ function App() {
     createRoutesFromElements(
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
         <Route element={<ProtectedRoute />}>
