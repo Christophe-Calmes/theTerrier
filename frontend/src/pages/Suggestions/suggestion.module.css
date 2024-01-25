@@ -1,0 +1,124 @@
+
+.suggestions_container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    /* border: 1px solid #ccc; */
+    border-radius: 8px;
+    /* background-color: #f8f8f8; */
+    /* background-color: blue; */
+    text-align: center;
+  }
+  
+  .suggestions_container h2{
+    font-family: 'Montserrat', sans-serif;
+
+    margin-bottom: 80px;
+  }
+
+  .profile_list {
+    flex-wrap: wrap;
+    justify-content: center;
+    /* background-color: green; */
+  }
+  
+
+
+  
+  .profile_card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .profile_card img {
+    width: 100%;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  
+  .profile_info {
+    text-align: left;
+  }
+  
+  .profile_info h3 {
+    margin-bottom: 10px;
+    color: #333;
+    font-family: 'Montserrat', sans-serif;
+
+  }
+  
+  .profile_info p {
+    font-family: 'Montserrat', sans-serif;
+
+    color: #777;
+    margin-bottom: 5px;
+  }
+  
+  .profile_card button {
+    background-color: #3498db;
+    color: #fff;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .profile_card button:hover {
+    background-color: #2980b9;
+  }
+  
+  .profile_card {
+    display: flex;
+    width: 90%;
+    margin: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* transition: transform 0.3s ease-in-out; */
+        background-color: red;
+
+  }
+
+  .profile_card_list{
+    display: flex;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+  }
+
+  .profile_card_list p, h3 {
+    font-family: 'Montserrat', sans-serif;
+
+  }
+
+
+  .profile_card_list img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; /* Make the image rounded */
+    margin-bottom: 10px;
+  }
+
+  .profile_info_list{
+    margin-left: 40px;
+    display: flex;
+    flex-direction: column;
+      align-items: flex-start;
+
+  }
+
+  .connect_button{
+    display: flex;
+    margin-left: auto;
+    align-items: center;
+  }
+
+  .connect_button button{
+    max-height: 40px;
+
+  }
