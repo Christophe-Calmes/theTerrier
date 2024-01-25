@@ -14,7 +14,7 @@ const getAll = (req, res) => {
 
 const getById = (req, res) => {
   models.user
-    .find(req.params.id)
+    .findUser(req.params.id)
     .then(([rows]) => {
       if (rows[0] == null) {
         res.sendStatus(404);
@@ -33,7 +33,10 @@ const create = (req, res) => {
   models.user
     .insert(user)
     .then(([result]) => {
-      res.location(`/users/${result.insertId}`).status(201).json({ id: result.insertId, message: "User created successfully." });
+      res
+        .location(`/users/${result.insertId}`)
+        .status(201)
+        .json({ id: result.insertId, message: "User created successfully." });
     })
     .catch((err) => {
       console.error(err);
@@ -48,6 +51,26 @@ const update = (req, res) => {
 
   models.user
     .update(user)
+    .then(([result]) => {
+      if (result.affectedRows === 0) {
+        res.sendStatus(404);
+      } else {
+        res.status(200).json({ msg: "updated", user });
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+const updateByOneUser = (req, res) => {
+  const user = req.body;
+  console.info('****Debug = req.body****')
+  console.info(req.body);
+  console.info('****Debug****')
+  user.id = parseInt(req.params.id, 10);
+  models.user
+    .updateByUser(user)
     .then(([result]) => {
       if (result.affectedRows === 0) {
         res.sendStatus(404);
@@ -83,4 +106,5 @@ module.exports = {
   create,
   update,
   destroy,
+  updateByOneUser,
 };
