@@ -13,13 +13,15 @@ const getAll = (req, res) => {
 };
 
 const getById = (req, res) => {
+  console.log(req.params.id, 'userController: userId')
   models.user
     .findUser(req.params.id)
     .then(([rows]) => {
       if (rows[0] == null) {
         res.sendStatus(404);
       } else {
-        res.send(rows[0]);
+        console.log(rows[0], 'userData retourne')
+        res.status(200).json({msg: 'getUser success', userData: rows[0]});
       }
     })
     .catch((err) => {

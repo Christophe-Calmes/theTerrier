@@ -1,26 +1,25 @@
 // import some node modules for later
-
+const express = require("express");
 const fs = require("node:fs");
 const path = require("node:path");
+const cors = require("cors");
 
 // create express app
-
-const express = require("express");
-
 const app = express();
 
 // use some application-level middlewares
 
 app.use(express.json());
 
-const cors = require("cors");
+// Enable CORS for all routes
+app.use(cors());
 
-app.use(
-  cors({
-    origin: process.env.FRONTEND_URL ?? "http://localhost:3000",
-    optionsSuccessStatus: 200,
-  })
-);
+// app.use(
+//   cors({
+//     origin: process.env.FRONTEND_URL ?? "http://localhost:3000",
+//     optionsSuccessStatus: 200,
+//   })
+// );
 
 // import and mount the API routes
 

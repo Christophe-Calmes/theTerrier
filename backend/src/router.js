@@ -78,7 +78,7 @@ router.delete(
 );
 // Have_interest routes
 router.get("/haveinterests", haveInterestControllers.getAll);
-router.get("/haveinterests/:id", haveInterestControllers.getById);
+router.get("/haveinterests/:userId", haveInterestControllers.getByUserId);
 router.post("/haveinterests/:id", haveInterestControllers.addHaveInterest);
 router.delete(
   "/haveinterests/:id",
