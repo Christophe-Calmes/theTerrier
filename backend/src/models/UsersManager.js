@@ -53,5 +53,12 @@ class UsersManager extends AbstractManager {
       ]
     );
   }
+
+  updateByUser(user) {
+    return this.database.query(
+      `UPDATE ${this.table} SET email=?,  username=?,  city=?,  gender=? WHERE id=?`,
+      [user.email, user.username, user.city, user.gender, user.id]
+    );
+  }
 }
 module.exports = UsersManager;

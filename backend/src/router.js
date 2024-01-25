@@ -38,6 +38,7 @@ router.put(
   validatorUser,
   userControllers.update
 );
+router.put("/users/update/:id", userControllers.updateByOneUser);
 router.delete("/users/:id", verifyToken, isRightUser, userControllers.destroy);
 // Roles routes
 router.get("/roles", rolesControllers.getAll);

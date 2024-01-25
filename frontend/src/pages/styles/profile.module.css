@@ -26,7 +26,7 @@
     align-content: space-around;
 }
 .buttonApplication {
-    width: 10vw;
+    width: 35%;
     font-size: 1em;
     font-style: normal;
     font-weight: 700;
@@ -36,7 +36,6 @@
     background: #6B240C;
     border: 0.5px solid #9a9696;
     border-radius: 20px;
-    padding: 0.5em 1em;
     margin-bottom: 1em;
     font-weight: 600;
     color: #fefbfb;
@@ -149,9 +148,15 @@
     flex-direction: column-reverse;
     align-items: flex-end;
 }
-aside .buttonApplication   {
-    width: 2vw;
-    text-align: center;
+.closeButton   {
     font-size: 0.9em;
-    border-radius: 50%;
+    border-radius: 100%;
+    background: #6B240C;
+    height: 2em;
+    width: 2em;
+    font-size: 1em;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
