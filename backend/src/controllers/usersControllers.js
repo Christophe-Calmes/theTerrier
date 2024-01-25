@@ -13,15 +13,20 @@ const getAll = (req, res) => {
 };
 
 const getById = (req, res) => {
-  console.log(req.params.id, 'userController: userId')
+  console.log(req.params.id, "userController: userId");
+  const userId = parseInt(req.params.id);
   models.user
-    .findUser(req.params.id)
-    .then(([rows]) => {
-      if (rows[0] == null) {
+    .findUser(userId)
+    .then(async ([rows]) => {
+      const user = rows[0];
+      if (user == null) {
         res.sendStatus(404);
       } else {
-        console.log(rows[0], 'userData retourne')
-        res.status(200).json({msg: 'getUser success', userData: rows[0]});
+        // Récupération des données de l'Interests
+        const [interests] = await models.haveinterests.selectInterest(userId);
+        user.interests = interests;
+        console.log(user, "userData retourne");
+        res.status(200).json({ msg: "getUser success", userData: user });
       }
     })
     .catch((err) => {
@@ -32,6 +37,7 @@ const getById = (req, res) => {
 
 const create = (req, res) => {
   const user = req.body;
+  console.log(user, "user data");
   models.user
     .insert(user)
     .then(([result]) => {
@@ -67,9 +73,9 @@ const update = (req, res) => {
 };
 const updateByOneUser = (req, res) => {
   const user = req.body;
-  console.info('****Debug = req.body****')
+  console.info("****Debug = req.body****");
   console.info(req.body);
-  console.info('****Debug****')
+  console.info("****Debug****");
   user.id = parseInt(req.params.id, 10);
   models.user
     .updateByUser(user)

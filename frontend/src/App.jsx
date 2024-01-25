@@ -27,6 +27,7 @@ function App() {
         <Route element={<ProtectedRoute />}>
           <Route path="/feed" element={<Feed />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/users/:id" element={<Profile />} />
           <Route path="/admin" element={<Admin />} />
         </Route>
         <Route path="*" element={<p>There's nothing here: 404!</p>} />

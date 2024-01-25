@@ -13,7 +13,7 @@ const getAll = (req, res) => {
 };
 
 const getByUserId = (req, res) => {
-  console.log(req.params.userId, 'getByUserId: userId')
+  console.log(req.params.userId, "getByUserId: userId");
   models.haveinterests
     .selectInterest(req.params.userId)
     .then(([rows]) => {
