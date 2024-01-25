@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import {  object, string } from 'yup';
 import Modal from 'react-modal';
@@ -11,7 +11,7 @@ const user = {
   city: "Los_Angeles",
   birthday_date: "1984-12-09T23:00:00.000Z",
   gender: 1,
-  about_me: "Hello, i'am TheDead a simple Marmotte in Los Angeles.",
+  about_me: "Hello, i'am The Dead a simple Marmotte in Los Angeles.",
   creation_date: "2024-01-19T12:40:42.000Z",
   liked: null,
   valid: 1,
@@ -38,6 +38,7 @@ const dataUserInterest = [
     interest: "La fête",
   },
 ];
+
 const modalFormStyle = {
   content: {
     top: '50%',
@@ -49,10 +50,33 @@ const modalFormStyle = {
     with: '50vw',
   },
 };
+
 function Profile() {
   const [userInterest, setUserInterest] = useState(dataUserInterest);
   const [isUpdate, setIsUpdate] = useState(false);
   const [isAboutMe, setIsAboutMe] = useState(false);
+  const [userData, setUserData] = useState(null)
+
+  const getUserData = async() => {
+    // connecter au serveur pour récupérer duser data
+    const id = 65;
+    const response = await fetch(`http://localhost:5000/users/${id}`)
+    console.log(response, 'reponse getUserData')
+    if(response.status === 200) {
+      const dataUser = await response.json();
+      return dataUser;
+    } else {
+      console.error("Error fetch API");
+      return null;
+    }
+ 
+  }
+
+  useEffect(() => {
+    getUserData();
+
+  }, [])
+
   const openUpdateMyProfil = () => {
     setIsUpdate(true);
   }
@@ -100,7 +124,7 @@ function Profile() {
           <p>
             <img href={user.profil_picture} alt={user.username} />
           </p>
-          <p>
+
             <ul className={styles.listProfil}>
               <li className={styles.titleName}> {user.username} </li>
               <li className={styles.info}>Registred since {formattedDate} </li>
@@ -108,7 +132,7 @@ function Profile() {
                 {Age(user.birthday_date)} year old
               </li>
             </ul>
-          </p>
+ 
           <h1 className={styles.title1}>Your actual interest</h1>
           <aside>
             <ul className={styles.listProfil}>
@@ -175,9 +199,9 @@ function Profile() {
                         // Authentication failed
                         console.error("Update failed:", response.statusText);
                       }
-                    } catch (error) {
-                      console.error("Error during update:", error);
-                    }
+                      } catch (error) {
+                        console.error("Error during update:", error);
+                      }
                     }
                   }>
                       <Form>
@@ -204,8 +228,10 @@ function Profile() {
                             <option value="3">Other</option>
                           </Field>
                       </li>
-                    <li><label>Profile Picture</label>
-                    <Field className={styles.select} name="file" as="input" type="file" accept="image/jpeg" /></li>
+                      <li>
+                        <label>Profile Picture</label>
+                        <Field className={styles.select} name="file" as="input" type="file" accept="image/jpeg" />
+                      </li>
                     </ul>
                     <button className={styles.buttonApplication} onClick={Submit} type="submit">Update my profil</button>
                       </Form>

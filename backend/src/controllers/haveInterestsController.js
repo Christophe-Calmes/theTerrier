@@ -11,9 +11,11 @@ const getAll = (req, res) => {
       res.sendStatus(500);
     });
 };
-const getById = (req, res) => {
+
+const getByUserId = (req, res) => {
+  console.log(req.params.userId, 'getByUserId: userId')
   models.haveinterests
-    .selectInterest(req.params.id)
+    .selectInterest(req.params.userId)
     .then(([rows]) => {
       if (rows[0] == null) {
         res.sendStatus(404);
@@ -26,6 +28,7 @@ const getById = (req, res) => {
       res.sendStatus(500);
     });
 };
+
 const addHaveInterest = (req, res) => {
   const haveInterest = [];
   haveInterest.user_id = parseInt(req.params.id, 10);
@@ -66,7 +69,7 @@ const destroyHaveInterest = (req, res) => {
 };
 module.exports = {
   getAll,
-  getById,
+  getByUserId,
   addHaveInterest,
   destroyHaveInterest,
 };
