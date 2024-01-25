@@ -154,11 +154,16 @@ function Profile() {
                       gender: values.gender,
                       profil_picture: values.profil_picture,
                     };
-                    console.info(updateUser);
+                    console.info(JSON.stringify(updateUser));
+                  
                     try {
                       const response = await fetch(`http://localhost:5000/users/update/${user.id}`, {
+
                         method: 'PUT',
-                        body: updateUser,
+                        headers: {
+                          'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(updateUser),
                       });
                 
                       if (response.ok) {
