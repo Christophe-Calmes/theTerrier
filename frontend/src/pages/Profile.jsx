@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-
+import { ErrorMessage, Field, Form, Formik } from 'formik';
+import {  object, string } from 'yup';
+import Modal from 'react-modal';
 import styles from "./styles/profile.module.css";
 
 const user = {
@@ -17,6 +19,15 @@ const user = {
   role: "user",
   level: 1,
 };
+const updateUser = {
+  email: "bozo@jaimail.com",
+  username: "TheDead",
+  city: "Los_Angeles",
+  gender: 1,
+  profil_picture: null,
+}
+
+
 const dataUserInterest = [
   {
     id: 4,
@@ -27,9 +38,33 @@ const dataUserInterest = [
     interest: "La fête",
   },
 ];
-
+const modalFormStyle = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    with: '50vw',
+  },
+};
 function Profile() {
   const [userInterest, setUserInterest] = useState(dataUserInterest);
+  const [isUpdate, setIsUpdate] = useState(false);
+  const [isAboutMe, setIsAboutMe] = useState(false);
+  const openUpdateMyProfil = () => {
+    setIsUpdate(true);
+  }
+  const closeUpdateProfil = () => {
+    setIsUpdate(false);
+  }
+  const openAboutMe = () => {
+    setIsAboutMe(true);
+  }
+  const closeAboutMe = () => {
+    setIsAboutMe(false);
+  }
   const deleteInterest = (idToDelete) => {
     const newUserInterest = userInterest.filter(
       (interet) => interet.id !== idToDelete
@@ -55,7 +90,9 @@ function Profile() {
   const formattedDate = new Intl.DateTimeFormat("fr-FR", options).format(
     dateObject
   );
-
+  const Submit = (values) => {
+    console.info(values);
+  }
   return (
     <div className={styles.contenerRow}>
       <section>
@@ -91,10 +128,109 @@ function Profile() {
       <section>
         <article>
           <aside className={styles.contenerCol}>
-            <button className={styles.buttonApplication}>
-              update my profil
-            </button>
-            <button className={styles.buttonApplication}>About me</button>
+            <button className={styles.buttonApplication} onClick={openUpdateMyProfil}>update my profil</button>
+            {
+              isUpdate && (
+                <Modal 
+                isOpen={isUpdate}
+                onRequestClose={closeUpdateProfil}
+                style={modalFormStyle}
+                >  
+                <aside className={styles.rigthButton}><button className={styles.closeButton} onClick={closeUpdateProfil}>X</button></aside>
+                  <h1 className={styles.title1}>Update my profil</h1>
+                  <Formik 
+                  validationSchema = {
+                    object({
+                      username: string().required("Your username is essential !").min(1).max(30),
+                      email: string().email().required("Email is necessary.").max(60),
+                      city: string().required("You living in a city or a prairie ?").max(40)
+                    })
+                  }
+                  initialValues={updateUser} onSubmit={async(values)=> {
+                    const updateUser = {
+                      email: values.email,
+                      username: values.username,
+                      city: values.city,
+                      gender: values.gender,
+                      profil_picture: values.profil_picture,
+                    };
+                    console.info(JSON.stringify(updateUser));
+                  
+                    try {
+                      const response = await fetch(`http://localhost:5000/users/update/${user.id}`, {
+
+                        method: 'PUT',
+                        headers: {
+                          'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(updateUser),
+                      });
+                
+                      if (response.ok) {
+                        // Authentication successful
+                        const data = await response.json();
+                        console.warn("User update:", data);
+                   
+                      } else {
+                        // Authentication failed
+                        console.error("Update failed:", response.statusText);
+                      }
+                    } catch (error) {
+                      console.error("Error during update:", error);
+                    }
+                    }
+                  }>
+                      <Form>
+                        <ul className={styles.listForm}>
+                        <li>
+                          <label>Email</label>
+                          <Field name="email" />
+                          <ErrorMessage name="email"/>
+                        </li>
+                        <li>
+                          <label>Pseudo</label>
+                          <Field name="username"/>
+                          <ErrorMessage name="username"/></li>
+                        <li>
+                          <label>City</label>
+                          <Field name="city"/>
+                          <ErrorMessage name="city"/>
+                        </li>
+                        <li>
+                          <label>Your gender :</label>
+                          <Field className={styles.select} as="select" name="gender">
+                            <option value="1">Male</option>
+                            <option value="2">Female</option>
+                            <option value="3">Other</option>
+                          </Field>
+                      </li>
+                    <li><label>Profile Picture</label>
+                    <Field className={styles.select} name="file" as="input" type="file" accept="image/jpeg" /></li>
+                    </ul>
+                    <button className={styles.buttonApplication} onClick={Submit} type="submit">Update my profil</button>
+                      </Form>
+                  </Formik>
+                </Modal>
+
+              )
+            }
+            <h1>update my profil</h1>
+
+            <button className={styles.buttonApplication} onClick={openAboutMe}>About me</button>
+              {
+                isAboutMe && (
+                  <Modal
+                  isOpen={isAboutMe}
+                  onRequestClose={closeAboutMe}
+                  style={modalFormStyle}
+                  >
+                    <aside className={styles.rigthButton}><button className={styles.closeButton} onClick={closeAboutMe}>X</button></aside>
+                    <h1>About me</h1>
+                    <p>Formulaire update About Me</p>
+                  </Modal>
+                )
+              }
+
           </aside>
           <article className={styles.borderConteneur}>
             <h1 className={styles.titleDescription}>Description</h1>
