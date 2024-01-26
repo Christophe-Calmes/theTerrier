@@ -21,16 +21,44 @@ function AuthProvider({ children }) {
     localStorage.removeItem("jwtToken");
   };
 
+  const checkAndRefeshJwt = async (jwtToken) => {
+    console.warn("checkAndRefeshJwt");
+    const url = "http://localhost:5000/checkAndRefeshJwt";
+    try {
+      const response = await fetch(`${url}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          // Include any additional headers if needed
+        },
+        body: JSON.stringify({ jwtToken: jwtToken }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      // Parse the response JSON
+      const data = await response.json();
+
+      // Handle the response data
+      console.log("Response:", data);
+      login(jwtToken, data.userData);
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
+  };
+
   useEffect(() => {
     const jwtToken = localStorage.getItem("jwtToken");
-    if (jwtToken) {
-      setIsAuthenticated(true);
+    if (jwtToken && !currentUser) {
+      checkAndRefeshJwt(jwtToken);
     }
   }, []);
 
   return (
     <AuthContext.Provider
-      value={{ currentUser, isAuthenticated, login, logout }}
+      value={{ currentUser, isAuthenticated, login, logout, checkAndRefeshJwt }}
     >
       {children}
     </AuthContext.Provider>

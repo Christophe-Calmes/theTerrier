@@ -18,6 +18,7 @@ const { verifyToken, isRightUser } = require("./middlewares/verifyToken");
 
 // Session
 router.post("/login", verifyPassword, sessionControllers.logIn);
+router.post("/checkAndRefeshJwt", verifyToken, userControllers.refeshUserById);
 
 // Exemples
 router.get("/items", itemControllers.getAll);

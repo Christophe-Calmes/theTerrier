@@ -12,6 +12,29 @@ const getAll = (req, res) => {
     });
 };
 
+const refeshUserById = (req, res) => {
+  console.log(req.userAuth.id, "refeshUserById");
+  const userId = req.userAuth.id;
+  models.user
+    .findUser(userId)
+    .then(async ([rows]) => {
+      const user = rows[0];
+      if (user == null) {
+        res.sendStatus(404);
+      } else {
+        // Récupération des données de l'Interests
+        const [interests] = await models.haveinterests.selectInterest(userId);
+        user.interests = interests;
+        // console.log(user, "userData retourne");
+        res.status(200).json({ msg: "getUser success", userData: user });
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 const getById = (req, res) => {
   console.log(req.params.id, "userController: userId");
   const userId = parseInt(req.params.id);
@@ -71,6 +94,7 @@ const update = (req, res) => {
       res.sendStatus(500);
     });
 };
+
 const updateByOneUser = (req, res) => {
   const user = req.body;
   console.info("****Debug = req.body****");
@@ -115,4 +139,5 @@ module.exports = {
   update,
   destroy,
   updateByOneUser,
+  refeshUserById,
 };
