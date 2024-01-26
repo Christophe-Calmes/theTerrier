@@ -203,7 +203,6 @@ console.log(currentUser.id);
                // Authentication successful
                const data = await response.json();
                console.warn("User update:", data);
-            
                } else {
                // Authentication failed
                console.error("Update failed:", response.statusText);
@@ -281,9 +280,45 @@ console.log(currentUser.id);
                   <button className={styles.closeButton} onClick={closeAboutMe}>
                     X
                   </button>
+                
                 </aside>
                 <h1>About me</h1>
-                <p>Formulaire update About Me</p>
+                {
+                    user && 
+                    <Formik
+                      validationSchema={object({
+                        about_me: string().min(10).max(750)
+                      })}
+                      initialValue={user}
+                      onSubmit={async(values)=>{
+                        console.infor(values);
+                      }}
+                    >
+                      <Form>
+                      <ul className={styles.listForm}>
+                        <li>
+                        <Field
+                          label="About me"
+                          name="about_me"
+                          type="textarea"
+                          as="textarea"
+                       />  
+                          <ErrorMessage name="about_me"/>
+                      </li>
+                      <li>
+                        <button
+                          className={styles.buttonApplication}
+                          onClick={Submit}
+                          type="submit"
+                        >
+                          Update my about me
+                        </button>
+                      </li>
+                      </ul>
+                 
+                      </Form>  
+                    </Formik>
+                  }
               </Modal>
             )}
           </aside>
