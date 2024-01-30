@@ -115,6 +115,23 @@ const updateByOneUser = (req, res) => {
       res.sendStatus(500);
     });
 };
+const updateByOneUserAboutMe = (req, res) => {
+  const user = req.body;
+  user.id = parseInt(req.params.id, 10);
+  models.user
+    .updateAboutMe(user)
+    .then(([result]) => {
+      if (result.affectedRows === 0) {
+        res.sendStatus(404);
+      } else {
+        res.status(200).json({ msg: "updated", user });
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
 
 const destroy = (req, res) => {
   models.user
@@ -140,4 +157,5 @@ module.exports = {
   destroy,
   updateByOneUser,
   refeshUserById,
+  updateByOneUserAboutMe,
 };

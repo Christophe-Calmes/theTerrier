@@ -13,6 +13,7 @@ function AuthProvider({ children }) {
     setIsAuthenticated(true);
     setCurrentUser(userData);
     localStorage.setItem("jwtToken", jwtToken);
+  
   };
 
   const logout = () => {

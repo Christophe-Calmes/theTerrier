@@ -34,13 +34,10 @@ function Profile() {
   const [isAboutMe, setIsAboutMe] = useState(false);
   const [user, setUser] = useState(null);
 
-console.log(currentUser.id);
-  // console.log(currentUser, "currentUser");
   const getUserData = async () => {
     // connect to the server to retrieve user data
     try {
 
-console.log(currentUser.id);
       const response = await fetch(`http://localhost:5000/users/${currentUser.id}`);
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -54,9 +51,10 @@ console.log(currentUser.id);
   };
 
   useEffect(() => {
-    // if (currentUser) getUserData(currentUser.id);
-    getUserData();
-  }, []);
+    if(currentUser) {
+      getUserData();
+    }
+  }, [currentUser]);
 
   const openUpdateMyProfil = () => {
     setIsUpdate(true);
@@ -203,6 +201,7 @@ console.log(currentUser.id);
                // Authentication successful
                const data = await response.json();
                console.warn("User update:", data);
+
                } else {
                // Authentication failed
                console.error("Update failed:", response.statusText);
@@ -287,11 +286,39 @@ console.log(currentUser.id);
                     user && 
                     <Formik
                       validationSchema={object({
-                        about_me: string().min(10).max(750)
+                        about_me: string().min(10).max(750).required("About me is necessary.")
                       })}
-                      initialValue={user}
+                      initialValues={user}
                       onSubmit={async(values)=>{
-                        console.infor(values);
+                        const updateAboutMe = {
+                          about_me: values.about_me,
+                        };
+                        
+                        try {
+                          const response = await fetch(
+                            `http://localhost:5000/users/update/aboutme/${user.id}`,
+                            {
+                              method: "PUT",
+                              headers: {
+                                "Content-Type": "application/json",
+                                "Authorization": `Bearer${localStorage.getItem("jwtToken")}`,
+                              },
+                              body: JSON.stringify(updateAboutMe),
+                            }
+                          );
+             
+                          if (response.ok) {
+                            // Authentication successful
+                            const data = await response.json();
+                            console.warn("User update:", data);
+                            user.about_me = values.about_me;
+                            } else {
+                            // Authentication failed
+                            console.error("Update failed:", response.statusText);
+                          }
+                        } catch (error) {
+                          console.error("Error during update:", error);
+                        }
                       }}
                     >
                       <Form>
