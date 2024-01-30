@@ -7,7 +7,7 @@ import { useAuthContext } from "../context/AuthProvider";
 import { useParams } from "react-router-dom";
 
 const updateUser = {
-  email: "bozo@jaimail.com",
+  email: "bozo@gmail.com",
   username: "TheDead",
   city: "Los_Angeles",
   gender: 1,
@@ -27,27 +27,23 @@ const modalFormStyle = {
 };
 
 function Profile() {
+  // C'est quoi ça ?
   const { currentUser } = useAuthContext();
+  // C'est quoi ça ?
   const [isUpdate, setIsUpdate] = useState(false);
   const [isAboutMe, setIsAboutMe] = useState(false);
   const [user, setUser] = useState(null);
 
-  // console.log(currentUser, "currentUser");
-  const { id } = useParams();
-
-  const getUserData = async (id) => {
+  const getUserData = async () => {
     // connect to the server to retrieve user data
-
     try {
-      const response = await fetch(`http://localhost:5000/users/${id}`);
 
+      const response = await fetch(`http://localhost:5000/users/${currentUser.id}`);
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-
       const data = await response.json();
       console.log(data, "response getUserData");
-
       setUser(data.userData);
     } catch (error) {
       console.error("Error fetching user data:", error);
@@ -55,9 +51,10 @@ function Profile() {
   };
 
   useEffect(() => {
-    // if (currentUser) getUserData(currentUser.id);
-    getUserData(id);
-  }, []);
+    if(currentUser) {
+      getUserData();
+    }
+  }, [currentUser]);
 
   const openUpdateMyProfil = () => {
     setIsUpdate(true);
@@ -162,105 +159,109 @@ function Profile() {
                   </button>
                 </aside>
                 <h1 className={styles.title1}>Update my profil</h1>
-                <Formik
-                  validationSchema={object({
-                    username: string()
-                      .required("Your username is essential !")
-                      .min(1)
-                      .max(30),
-                    email: string()
-                      .email()
-                      .required("Email is necessary.")
-                      .max(60),
-                    city: string()
-                      .required("You living in a city or a prairie ?")
-                      .max(40),
-                  })}
-                  initialValues={updateUser}
-                  onSubmit={async (values) => {
-                    const updateUser = {
-                      email: values.email,
-                      username: values.username,
-                      city: values.city,
-                      gender: values.gender,
-                      profil_picture: values.profil_picture,
-                    };
-                    console.info(JSON.stringify(updateUser));
+                { user && 
+         <Formik
+         validationSchema={object({
+           username: string()
+             .required("Your username is essential !")
+             .min(1)
+             .max(30),
+           email: string()
+             .email()
+             .required("Email is necessary.")
+             .max(60),
+           city: string()
+             .required("You living in a city or a prairie ?")
+             .max(40),
+         })}
+         initialValues={user}
+         onSubmit={async (values) => {
+           const updateUser = {
+             email: values.email,
+             username: values.username,
+             city: values.city,
+             gender: values.gender,
+             profil_picture: values.profil_picture,
+           };
+           console.info(JSON.stringify(updateUser));
 
-                    try {
-                      const response = await fetch(
-                        `http://localhost:5000/users/update/${user.id}`,
-                        {
-                          method: "PUT",
-                          headers: {
-                            "Content-Type": "application/json",
-                          },
-                          body: JSON.stringify(updateUser),
-                        }
-                      );
+           try {
+             const response = await fetch(
+               `http://localhost:5000/users/update/${user.id}`,
+               {
+                 method: "PUT",
+                 headers: {
+                   "Content-Type": "application/json",
+                 },
+                 body: JSON.stringify(updateUser),
+               }
+             );
 
-                      if (response.ok) {
-                        // Authentication successful
-                        const data = await response.json();
-                        console.warn("User update:", data);
-                      } else {
-                        // Authentication failed
-                        console.error("Update failed:", response.statusText);
-                      }
-                    } catch (error) {
-                      console.error("Error during update:", error);
-                    }
-                  }}
-                >
-                  <Form>
-                    <ul className={styles.listForm}>
-                      <li>
-                        <label>Email</label>
-                        <Field name="email" />
-                        <ErrorMessage name="email" />
-                      </li>
-                      <li>
-                        <label>Pseudo</label>
-                        <Field name="username" />
-                        <ErrorMessage name="username" />
-                      </li>
-                      <li>
-                        <label>City</label>
-                        <Field name="city" />
-                        <ErrorMessage name="city" />
-                      </li>
-                      <li>
-                        <label>Your gender :</label>
-                        <Field
-                          className={styles.select}
-                          as="select"
-                          name="gender"
-                        >
-                          <option value="1">Male</option>
-                          <option value="2">Female</option>
-                          <option value="3">Other</option>
-                        </Field>
-                      </li>
-                      <li>
-                        <label>Profile Picture</label>
-                        <Field
-                          className={styles.select}
-                          name="file"
-                          as="input"
-                          type="file"
-                          accept="image/jpeg"
-                        />
-                      </li>
-                    </ul>
-                    <button
-                      className={styles.buttonApplication}
-                      onClick={Submit}
-                      type="submit"
-                    >
-                      Update my profil
-                    </button>
-                  </Form>
-                </Formik>
+             if (response.ok) {
+               // Authentication successful
+               const data = await response.json();
+               console.warn("User update:", data);
+
+               } else {
+               // Authentication failed
+               console.error("Update failed:", response.statusText);
+             }
+           } catch (error) {
+             console.error("Error during update:", error);
+           }
+         }}
+       >
+         <Form>
+           <ul className={styles.listForm}>
+             <li>
+               <label>Email</label>
+               <Field name="email" />
+               <ErrorMessage name="email" />
+             </li>
+             <li>
+               <label>Pseudo</label>
+               <Field name="username" />
+               <ErrorMessage name="username" />
+             </li>
+             <li>
+               <label>City</label>
+               <Field name="city" />
+               <ErrorMessage name="city" />
+             </li>
+             <li>
+               <label>Your gender :</label>
+               <Field
+                 className={styles.select}
+                 as="select"
+                 name="gender"
+               >
+                 <option value="1">Male</option>
+                 <option value="2">Female</option>
+                 <option value="3">Other</option>
+               </Field>
+             </li>
+             <li>
+               <label>Profile Picture</label>
+               <Field
+                 className={styles.select}
+                 name="file"
+                 as="input"
+                 type="file"
+                 accept="image/jpeg"
+               />
+             </li>
+           </ul>
+           <button
+             className={styles.buttonApplication}
+             onClick={Submit}
+             type="submit"
+           >
+             Update my profil
+           </button>
+         </Form>
+       </Formik>
+                }
+       
               </Modal>
             )}
             <h1>update my profil</h1>
@@ -278,9 +279,73 @@ function Profile() {
                   <button className={styles.closeButton} onClick={closeAboutMe}>
                     X
                   </button>
+                
                 </aside>
                 <h1>About me</h1>
-                <p>Formulaire update About Me</p>
+                {
+                    user && 
+                    <Formik
+                      validationSchema={object({
+                        about_me: string().min(10).max(750).required("About me is necessary.")
+                      })}
+                      initialValues={user}
+                      onSubmit={async(values)=>{
+                        const updateAboutMe = {
+                          about_me: values.about_me,
+                        };
+                        
+                        try {
+                          const response = await fetch(
+                            `http://localhost:5000/users/update/aboutme/${user.id}`,
+                            {
+                              method: "PUT",
+                              headers: {
+                                "Content-Type": "application/json",
+                                "Authorization": `Bearer${localStorage.getItem("jwtToken")}`,
+                              },
+                              body: JSON.stringify(updateAboutMe),
+                            }
+                          );
+             
+                          if (response.ok) {
+                            // Authentication successful
+                            const data = await response.json();
+                            console.warn("User update:", data);
+                            user.about_me = values.about_me;
+                            } else {
+                            // Authentication failed
+                            console.error("Update failed:", response.statusText);
+                          }
+                        } catch (error) {
+                          console.error("Error during update:", error);
+                        }
+                      }}
+                    >
+                      <Form>
+                      <ul className={styles.listForm}>
+                        <li>
+                        <Field
+                          label="About me"
+                          name="about_me"
+                          type="textarea"
+                          as="textarea"
+                       />  
+                          <ErrorMessage name="about_me"/>
+                      </li>
+                      <li>
+                        <button
+                          className={styles.buttonApplication}
+                          onClick={Submit}
+                          type="submit"
+                        >
+                          Update my about me
+                        </button>
+                      </li>
+                      </ul>
+                 
+                      </Form>  
+                    </Formik>
+                  }
               </Modal>
             )}
           </aside>

@@ -33,7 +33,8 @@ export default function Navbar() {
         {isAuthenticated && (
           <div className="user">
             {currentUser && (
-              <NavLink to={`/users/${currentUser.id}`}>
+              //<NavLink to={`/users/${currentUser.id}`}>
+                <NavLink to={`/profile`}>
                 <i className="bi bi-person-circle" />
                 {currentUser.email}
               </NavLink>

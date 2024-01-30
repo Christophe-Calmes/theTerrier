@@ -40,6 +40,8 @@ router.put(
   userControllers.update
 );
 router.put("/users/update/:id", userControllers.updateByOneUser);
+router.put("/users/update/aboutme/:id", userControllers.updateByOneUserAboutMe);
+
 router.delete("/users/:id", verifyToken, isRightUser, userControllers.destroy);
 // Roles routes
 router.get("/roles", rolesControllers.getAll);
