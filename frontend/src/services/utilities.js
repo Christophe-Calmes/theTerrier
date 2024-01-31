@@ -21,10 +21,7 @@ export const Age = (Birthday) => {
   }
   return userAge;
 };
-
-
 export const getUserData = async (id) => {
-  // connect to the server to retrieve user data
   try {
     const response = await fetch(`http://localhost:5000/users/${id}`);
     if (!response.ok) {
