@@ -1,5 +1,4 @@
 export const Age = (Birthday) => {
-  console.info("Birthday = "+ Birthday);
   const isValidDate = !isNaN(new Date(Birthday).getTime());
   if (!isValidDate) {
     return "Date invalide";

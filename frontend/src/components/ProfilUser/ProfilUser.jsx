@@ -1,7 +1,43 @@
 import styles from "../../pages/styles/profile.module.css";
 import { Age } from "../../services/utilities";
+import { useState, useEffect } from "react";
 
 const profilUser = ({ user }) => {
+  const [userInterests, setUserInterests] = useState([]);
+  useEffect(()=> {
+    if(user) {
+      setUserInterests(user.interests);
+    }
+   
+  }, [user]);
+
+  const deleteInterest = async (idToDelete) => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/haveinterests/${user.id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer${localStorage.getItem("jwtToken")}`,
+          },
+          body: JSON.stringify({interest_id: idToDelete}),
+        }
+      );
+ 
+      if (response.status === 204) {
+        const newUserInterest = userInterests.filter(
+          (interet) => interet.id !== idToDelete
+        );
+        setUserInterests(newUserInterest);
+        } else {
+        console.error("Update failed:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error during update:", error);
+    }
+  };
+
   return (
     <div> {user && (
         <section className="user-profile">
@@ -21,8 +57,8 @@ const profilUser = ({ user }) => {
             <h1 className={styles.title1}>Your actual interest</h1>
             <aside>
               <ul className={styles.listProfil}>
-                {user.interests &&
-                  user.interests.map((interest) => (
+                {userInterests.length > 0 &&
+                  userInterests.map((interest) => (
                     <li
                       className={styles.bubble}
                       key={interest.id}

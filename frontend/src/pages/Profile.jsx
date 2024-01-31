@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { ErrorMessage, Field, Form, Formik } from "formik";
-import { object, string } from "yup";
-import Modal from "react-modal";
 import styles from "./styles/profile.module.css";
 import { useAuthContext } from "../context/AuthProvider";
-import { useParams } from "react-router-dom";
-import { Age, getUserData } from "../services/utilities"
+import { getUserData } from "../services/utilities"
 import ProfilUser from "../components/ProfilUser/ProfilUser";
 import DescriptionUser from "../components/DescriptionUser/DescriptionUser"
 import UpdateMyProfilUser from "../components/UpdateMyProfil/UpdateMyProfil";
@@ -27,19 +23,7 @@ function Profile() {
     fetchData();
   }, [currentUser]);
 
-  
-  const openAboutMe = () => {
-    setIsAboutMe(true);
-  };
-  const closeAboutMe = () => {
-    setIsAboutMe(false);
-  };
-  const deleteInterest = (idToDelete) => {
-    const newUserInterest = userInterest.filter(
-      (interet) => interet.id !== idToDelete
-    );
-    setUserInterest(newUserInterest);
-  };
+
 
 
 
