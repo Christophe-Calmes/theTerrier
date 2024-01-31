@@ -1,7 +1,9 @@
 import styles from "../../pages/styles/profile.module.css";
 import { Age } from "../../services/utilities";
+import DeleteInterestForUser from "../DeleteInterestForUser/DeleteInterestForUser"
 
 const profilUser = ({ user }) => {
+  
   return (
     <div> {user && (
         <section className="user-profile">
@@ -20,18 +22,7 @@ const profilUser = ({ user }) => {
 
             <h1 className={styles.title1}>Your actual interest</h1>
             <aside>
-              <ul className={styles.listProfil}>
-                {user.interests &&
-                  user.interests.map((interest) => (
-                    <li
-                      className={styles.bubble}
-                      key={interest.id}
-                      onClick={() => deleteInterest(interest.id)}
-                    >
-                      {interest.interest}
-                    </li>
-                  ))}
-              </ul>
+             <DeleteInterestForUser DataUserInterests={user.interests} id={user.id}/>
             </aside>
           </article>
           </section>
