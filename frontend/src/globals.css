@@ -10,21 +10,21 @@
 
 :root {
     --primary-hue: 30;
-    --gray-hue: 240;
+    --gray-hue: 30;
     --color-primary: hsl(var(--color-primary), 100%, 50%);
     --color-primary-variant: hsl(var(--primary-hue), 100%, 65%);
-    --color-secondary: #F5CCA0;
+    --color-secondary: #6B240C;
     --color-gray-100: hsl(var(--gray-hue), 47%, 94%);
     --color-gray-200: hsl(var(--gray-hue), 26%, 75%);
     --color-gray-300: hsl(var(--gray-hue), 25%, 64%);
     --color-gray-400: hsl(var(--gray-hue), 16%, 41%);
     --color-gray-500: hsl(var(--gray-hue), 44%, 25%);
-    --color-gray-600: hsl(var(--gray-hue), 48%, 15%);
+    --color-gray-600: hsl(var(--gray-hue), 48%, 90%);
 
     --container-width-lg: 80%;
     --container-width-md: 90%;
 
-    --transition: all 500ms ease;
+    --transition: all 250ms ease;
 }
 
 /*GENERAL STYLES*/
@@ -34,7 +34,7 @@ body {
     color: var(--color-gray-200);
     line-height: 1.7;
     overflow-x: hidden;
-    background: var(--color-gray-600);
+    background: var(--color-gray-100);
 }
 
 .container {
@@ -57,7 +57,7 @@ h2 {
 }
 
 a {
-    color: var(--color-gray-100);
+    color: var(--color-secondary);
 }
 
 img {
@@ -71,14 +71,20 @@ img {
     width: fit-content;
     margin: 0 auto;
     padding: 0.9rem 2rem;
-    background: var(--color-primary);
+    background: var(--color-secondary);
     border-radius: 1.5rem;
+    border: 2px solid var(--color-gray-100);
+    /* border-color: var(--color-primary); */
     transition: var(--transition);
 }
 
 .btn:hover {
-    background: var(--color-secondary);
-    color: var(--color-gray-600);
+    background: var(--color-primary);
+    color: var(--color-secondary);
+    border-color: var(--color-secondary);
+    position: relative; 
+    border: 2px solid transparent;
+    border-color: #6B240C;
 }
 
 .btn.lg {
@@ -99,21 +105,21 @@ img {
 /* A DEFINIR SELON LES BESOINS */
 
 section {
-    margin-top: 10rem;
+    margin-top: 1.5rem;
 }
 
 .section__head {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 1rem;
 }
 
 .section__head span {
-    background: var(--color-gray-500);
     padding: 0.8rem;
     border-radius: 1rem;
     color: var(--color-secondary);
-    font-size: 1.5rem;
+    font-size: 3rem;
 }
 
 /* _______________________ */
@@ -123,7 +129,7 @@ section {
     border: 2px solid transparent;
     text-align: center;
     padding: 3rem 2rem;
-    border-radius: 0 3rem 0 3rem;
+    border-radius: 2rem;
     transition: var(--transition)
 }
 
