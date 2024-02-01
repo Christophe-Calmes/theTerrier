@@ -34,3 +34,16 @@ export const getUserData = async (id) => {
     console.error("Error fetching user data:", error);
   }
 };
+export const getData = async (route) => {
+  try {
+    const response = await fetch(`${route}`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const data = await response.json();
+    console.log(data, "response getUserData");
+    return data.userData;
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+  }
+};

@@ -4,9 +4,6 @@ import "./Navbar.scss";
 
 export default function Navbar() {
   const { currentUser, isAuthenticated, logout } = useAuthContext();
-  console.log(currentUser);
-  console.log(isAuthenticated);
-
   return (
     <nav>
       <div className="left">
@@ -21,6 +18,7 @@ export default function Navbar() {
 
       <div className="right">
         {!isAuthenticated && <NavLink to="/signin"> Sign-In </NavLink>}
+   
         {!isAuthenticated && (
           <NavLink to="/signup">
             <button>
@@ -39,7 +37,7 @@ export default function Navbar() {
                 {currentUser.email}
               </NavLink>
             )}
-
+            {isAuthenticated && <NavLink to="/addinterests">Add interests</NavLink>}
             <div className="user-logout">
               <button onClick={logout}>Logout</button>
             </div>
