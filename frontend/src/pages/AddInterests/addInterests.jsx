@@ -1,26 +1,67 @@
 import { useAuthContext } from "../../context/AuthProvider";
 import DeleteInterestForUser from "../../components/DeleteInterestForUser/DeleteInterestForUser";
-import getData from "../../services/utilities";
+import {  getData } from "../../services/utilities";
 import React, { useState, useEffect } from "react";
+import styles from "../styles/profile.module.css";
 function addInterests() {
+  
     const { currentUser } = useAuthContext();
     const [dataInterests, setDataInterests] = useState([]);
-
+    const fetchDataInterests = async () => {
+      setDataInterests(await getData("http://localhost:5000/interests"))
+      console.info(currentUser);
+    }
     useEffect(()=>{
-        const fetchData = async () => {
-                setDataInterests(await getData("/interests"))
+      fetchDataInterests()
+    }, []);
+    const SubmitOneInterest = async(idInterest) => {
+      const objet = {};
+      objet.interest_id = idInterest;
+      try {
+        const response = await fetch(`http://localhost:5000/haveinterests/${currentUser.id}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer${localStorage.getItem("jwtToken")}`
+          },
+          body: JSON.stringify(objet),
+        });
+    
+        if (!response.ok) {
+          console.error("Error:", response.statusText);
+          return;
+        } else {
+          console.info("Add interest for user");
+          fetchData();
         }
-    }, [dataInterests])
-    console.log(dataInterests);
+        const responseData = await response.json();
+        console.log("Success:", responseData);
+      } catch (error) {
+        
+      }
+    };
+
+
   return (
-    <div>
+    <div className={styles.contenerRow}>
         <section>
+          <h1 className={styles.title1}>Your interests</h1>
         { currentUser &&
         <DeleteInterestForUser DataUserInterests={currentUser.interests} id={currentUser.id}/>
       }  
         </section>
         <section>
-
+        <h1 className={styles.title1}>Interests</h1>
+        <ul className={styles.listProfil}>
+        {
+          dataInterests.length > 0 &&
+          dataInterests.map((interest) => (
+            <li className={styles.bubbleAdd} key={interest.id} onClick={() => SubmitOneInterest(interest.id)}>
+              Add {interest.name}
+            </li>
+          ))
+        }
+          </ul>
         </section>
 
     </div>

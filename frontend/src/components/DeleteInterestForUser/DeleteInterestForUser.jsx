@@ -31,8 +31,10 @@ const DeleteInterestForUser = ({DataUserInterests, id}) => {
   useEffect(()=> {
     if(DataUserInterests) {
       setUserInterests(DataUserInterests);
+
     }
   }, []);
+
   return (
     <div>
          <ul className={styles.listProfil}>
