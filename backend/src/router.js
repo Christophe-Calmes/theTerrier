@@ -16,6 +16,11 @@ const hashPassword = require("./middlewares/hashPassword");
 const verifyPassword = require("./middlewares/verifiePassword");
 const { verifyToken, isRightUser } = require("./middlewares/verifyToken");
 
+router.get("/", (req, res) => {
+  res.status(200).json("Hello, your app run on port 5000");
+  // .json(`Hello, your app run on port ${process.env.APP_PORT}`);
+});
+
 // Session
 router.post("/login", verifyPassword, sessionControllers.logIn);
 router.post("/checkAndRefeshJwt", verifyToken, userControllers.refeshUserById);
