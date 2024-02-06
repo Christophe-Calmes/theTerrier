@@ -3,7 +3,8 @@ import { Age } from "../../services/utilities";
 import DeleteInterestForUser from "../DeleteInterestForUser/DeleteInterestForUser"
 
 const profilUser = ({ user }) => {
-  
+
+
   return (
     <div> {user && (
         <section className="user-profile">
@@ -14,7 +15,6 @@ const profilUser = ({ user }) => {
 
             <ul className={styles.listProfil}>
               <li className={styles.titleName}> {user.username} </li>
-              {/* <li className={styles.info}>Registred since {formattedDate} </li> */}
               <li className={styles.info}>
                 {user && Age(user.birthday_date)} year old
               </li>
