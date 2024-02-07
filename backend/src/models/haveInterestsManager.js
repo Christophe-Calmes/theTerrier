@@ -28,5 +28,12 @@ class HaveInterestsManager extends AbstractManager {
       [data.user_id, data.interest_id]
     );
   }
+
+  noDuplicationOfInterest(data) {
+    return this.database.query(
+      `SELECT COUNT(user_id) AS samInterest FROM ${this.table} WHERE user_id = ? AND interest_id = ?;`,
+      [data.user_id, data.interest_id]
+    );
+  }
 }
 module.exports = HaveInterestsManager;

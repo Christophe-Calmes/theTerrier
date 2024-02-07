@@ -28,20 +28,33 @@ const getByUserId = (req, res) => {
       res.sendStatus(500);
     });
 };
-
 const addHaveInterest = (req, res) => {
-  const haveInterest = [];
-  haveInterest.user_id = parseInt(req.params.id, 10);
-  console.info(haveInterest.user_id);
-  haveInterest.interest_id = req.body.interest_id;
-  console.info(haveInterest.interest_id);
+  const haveInterest = {
+    // Use an object instead of array for clarity
+    user_id: parseInt(req.params.id, 10),
+    interest_id: req.body.interest_id,
+  };
+
   models.haveinterests
-    .insertNewInterest(haveInterest)
+    .noDuplicationOfInterest(haveInterest)
     .then(([result]) => {
-      if (result.affectedRows === 0) {
-        res.sendStatus(404);
+      if (result[0].samInterest === 0) {
+        models.haveinterests
+          .insertNewInterest(haveInterest) // Proceed with insertion
+          .then(([result]) => {
+            if (result.affectedRows === 0) {
+              // Handle insertion errors
+              res.sendStatus(404);
+            } else {
+              res.sendStatus(204); // Success
+            }
+          })
+          .catch((err) => {
+            console.error(err);
+            res.sendStatus(500);
+          });
       } else {
-        res.sendStatus(204);
+        res.sendStatus(404);
       }
     })
     .catch((err) => {
@@ -49,6 +62,7 @@ const addHaveInterest = (req, res) => {
       res.sendStatus(500);
     });
 };
+
 const destroyHaveInterest = (req, res) => {
   const haveInterest = [];
   haveInterest.user_id = parseInt(req.params.id, 10);
