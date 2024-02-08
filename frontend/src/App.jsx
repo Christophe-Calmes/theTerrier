@@ -8,6 +8,7 @@ import Feed from "@pages/Feed";
 import SignIn from "@pages/SignIn/SignIn";
 import SignUp from "@pages/SignUp";
 import Profile from "@pages/Profile";
+import AddInterests from "@pages/AddInterests/addInterests";
 import Admin from "@pages/Admin";
 import Layout from "@components/Layout";
 
@@ -31,6 +32,7 @@ function App() {
         <Route element={<ProtectedRoute />}>
           <Route path="/feed" element={<Feed />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/addinterests" element={<AddInterests />} />
           <Route path="/users/:id" element={<Profile />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/suggestions" element={<Suggestion />} />

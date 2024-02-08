@@ -10,7 +10,6 @@ import AboutMe from "../components/AboutMe/AboutMe";
 
 function Profile() {
   const { currentUser } = useAuthContext();
-  const [isAboutMe, setIsAboutMe] = useState(false);
   const [user, setUser] = useState(null);
 
 

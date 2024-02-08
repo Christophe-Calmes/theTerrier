@@ -9,7 +9,6 @@ function AuthProvider({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(null);
 
   const login = (jwtToken, userData) => {
-    console.log(userData, "auth provider userData");
     setIsAuthenticated(true);
     setCurrentUser(userData);
     localStorage.setItem("jwtToken", jwtToken);
@@ -41,9 +40,7 @@ function AuthProvider({ children }) {
 
       // Parse the response JSON
       const data = await response.json();
-
       // Handle the response data
-      console.log("Response:", data);
       login(jwtToken, data.userData);
     } catch (error) {
       console.error("Error:", error.message);
