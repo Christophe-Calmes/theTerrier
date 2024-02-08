@@ -40,13 +40,26 @@ const addHaveInterest = (req, res) => {
     .then(([result]) => {
       if (result[0].samInterest === 0) {
         models.haveinterests
-          .insertNewInterest(haveInterest) // Proceed with insertion
+          .maxInterestForOneUser(haveInterest)
           .then(([result]) => {
-            if (result.affectedRows === 0) {
-              // Handle insertion errors
-              res.sendStatus(404);
+            if (result[0].numberInterest < 7) {
+              // InsertNewInterest
+              models.haveinterests
+                .insertNewInterest(haveInterest)
+                .then(([result]) => {
+                  if (result.affectedRows === 0) {
+                    res.sendStatus(404);
+                  } else {
+                    res.sendStatus(204);
+                  }
+                })
+                .catch((err) => {
+                  console.error(err);
+                  res.sendStatus(500);
+                });
+              // InsertNewInterest
             } else {
-              res.sendStatus(204); // Success
+              res.sendStatus(204);
             }
           })
           .catch((err) => {
@@ -54,7 +67,7 @@ const addHaveInterest = (req, res) => {
             res.sendStatus(500);
           });
       } else {
-        res.sendStatus(404);
+        res.sendStatus(409);
       }
     })
     .catch((err) => {

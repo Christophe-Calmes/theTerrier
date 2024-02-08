@@ -35,5 +35,12 @@ class HaveInterestsManager extends AbstractManager {
       [data.user_id, data.interest_id]
     );
   }
+
+  maxInterestForOneUser(data) {
+    return this.database.query(
+      `SELECT COUNT(user_id) AS numberInterest FROM ${this.table} WHERE user_id = ?;`,
+      [data.user_id]
+    );
+  }
 }
 module.exports = HaveInterestsManager;
