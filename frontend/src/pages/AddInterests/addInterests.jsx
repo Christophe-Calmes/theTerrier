@@ -15,8 +15,6 @@ function addInterests() {
         console.error("User not log")
       }
     }
-
-    // Interests data
     const [dataInterests, setDataInterests] = useState([]);
     const fetchDataInterests = async () => {
       setDataInterests(await getData("http://localhost:5000/interests"))
@@ -64,7 +62,7 @@ function addInterests() {
          }
       </section>
       <section>
-        <h1 className={styles.title1}>Interests</h1>
+        <h1 className={styles.title1}>Interests </h1>
         <ul className={styles.listProfil}>
         {
           dataInterests.length > 0 &&
