@@ -75,9 +75,34 @@ const submitValide = async (idInterests) => {
     }
 
 }
-const deleteInterest = (idInterest) => {
+const deleteInterest = async (idInterest) => {
   console.info(idInterest);
+  try {
+    const response = await fetch(
+      `http://localhost:5000/interests/${idInterest}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer${localStorage.getItem("jwtToken")}`,
+        },
+       
+      }
+    );
+
+    if (response.status === 204) {
+      setDataInterestsNoValid(prevState => prevState.filter(element => element !== updateInterest))
+      } else {
+      console.error("Delete failed:", response.statusText);
+    }
+  } catch (error) {
+    console.error("Error during delete:", error);
+  }
+
 }
+
+
+
 
 
   return (
@@ -102,11 +127,11 @@ const deleteInterest = (idInterest) => {
               <li className={styles.textDescription}>No valid interests</li>
               {
                 dataInterestsNoValid.length > 0 &&
-                dataInterestsNoValid.map((validInterest)=>(
-                  validInterest.valid === 0 && 
-                  <><li key={validInterest.id} onClick={() => submitValide(validInterest.id)}>
-                    {validInterest.name}<br />
-                  </li><><button onClick={() => deleteInterest(validInterest.id)}>Delete {validInterest.name} </button></></>
+                dataInterestsNoValid.map((element)=>(
+                  element.valid === 0 && 
+                  <><li key={element.id} onClick={() => submitValide(element.id)}>
+                    {element.name}<br />
+                  </li><><button onClick={() => deleteInterest(element.id)}>Delete {element.name} </button></></>
                 
                 ))
               }
