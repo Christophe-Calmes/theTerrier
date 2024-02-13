@@ -42,7 +42,7 @@ const addHaveInterest = (req, res) => {
         models.haveinterests
           .maxInterestForOneUser(haveInterest)
           .then(([result]) => {
-            if (result[0].numberInterest < 7) {
+            if (result[0].numberInterest < 6) {
               // InsertNewInterest
               models.haveinterests
                 .insertNewInterest(haveInterest)
