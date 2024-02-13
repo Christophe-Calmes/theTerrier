@@ -8,11 +8,12 @@ function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(null);
 
+  const isAdmin = currentUser && currentUser?.role === "admin";
+
   const login = (jwtToken, userData) => {
     setIsAuthenticated(true);
     setCurrentUser(userData);
     localStorage.setItem("jwtToken", jwtToken);
-  
   };
 
   const logout = () => {
@@ -56,7 +57,14 @@ function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider
-      value={{ currentUser, isAuthenticated, login, logout, checkAndRefeshJwt }}
+      value={{
+        currentUser,
+        isAuthenticated,
+        isAdmin,
+        login,
+        logout,
+        checkAndRefeshJwt,
+      }}
     >
       {children}
     </AuthContext.Provider>
