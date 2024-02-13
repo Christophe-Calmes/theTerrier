@@ -10,10 +10,14 @@ function Admin() {
   const fetchDataInterests =  (valid) => {
     return getData(`http://localhost:5000/interests/valid/${valid}`)
   }
-useEffect(async ()=>{
-  setDataInterestsValid(await fetchDataInterests(1));
-  console.info(dataInterestsValid);
-  setDataInterestsNoValid(await fetchDataInterests(0));
+  const updateInterest = async () => {
+    setDataInterestsValid(await fetchDataInterests(1));
+    setDataInterestsNoValid(await fetchDataInterests(0));
+  }
+useEffect(()=>{
+
+  updateInterest();
+  
 },[])
 
   return (
