@@ -11,6 +11,18 @@ const getAll = (req, res) => {
       res.sendStatus(500);
     });
 };
+const getAllByValid = (req, res) => {
+  models.interests
+  .sortingByValidInterests(parseInt(req.params.valid, 10))
+  .then((rows) => {
+    console.info(rows);
+    res.send(rows[0]);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.sendStatus(500);
+  });
+}
 const getById = (req, res) => {
   models.interests
     .find(req.params.id)
@@ -74,6 +86,7 @@ const destroy = (req, res) => {
 };
 module.exports = {
   getAll,
+  getAllByValid,
   getById,
   create,
   update,

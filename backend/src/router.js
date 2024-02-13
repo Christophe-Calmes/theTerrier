@@ -56,6 +56,7 @@ router.put("/roles/:id", rolesControllers.update);
 router.delete("/roles/:id", verifyToken, rolesControllers.destroy);
 // Interests routes
 router.get("/interests", interestsControllers.getAll);
+router.get("/interests/valid/:valid", interestsControllers.getAllByValid)
 router.get("/interests/:id", interestsControllers.getById);
 router.post("/interests", interestsControllers.create);
 router.put("/interests/:id", interestsControllers.update);

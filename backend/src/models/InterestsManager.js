@@ -17,5 +17,12 @@ class InterestesManager extends AbstractManager {
       [data.name, data.valid, data.id]
     );
   }
+
+  sortingByValidInterests(isValid) {
+    
+    return this.database.query(`SELECT * FROM ${this.table} WHERE valid = ?`,
+    [isValid]
+    )
+  }
 }
 module.exports = InterestesManager;
