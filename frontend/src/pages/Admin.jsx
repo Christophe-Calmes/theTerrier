@@ -1,42 +1,39 @@
 import React, { useState, useEffect } from "react";
 import { useAuthContext } from "../context/AuthProvider";
 import styles from "./styles/profile.module.css";
-import { getUserData } from "../services/utilities";
+import { getUserData, getData } from "../services/utilities";
 
 function Admin() {
   const { currentUser } = useAuthContext();
-
   const [admin, setAdmin] = useState(false);
+
 
   useEffect(() => {
     const isAdmin = async () => {
       if (currentUser) {
-        console.log(`id${currentUser.id}`);
         const dataUser = await getUserData(currentUser.id);
         console.log(`result${dataUser}`);
         setAdmin(dataUser);
       }
     };
-
     isAdmin();
   }, [currentUser]);
 
-  console.log(`Ligne 31 ${JSON.stringify(admin)}`);
+
   return (
     <div>
-      {admin?.role === "admin" ? (
+      {admin?.role === "admin" &&
         <section>
           <article>
-            <h1 className={styles.title1}>Administrateur</h1>
+            <h1 className={styles.title1}>Existing interest</h1>
+
+            <ul>
+              <li className={styles.textDescription}>Valid interests</li>
+
+            </ul>
           </article>
         </section>
-      ) : (
-        <section>
-          <article>
-            <h1 className={styles.title1}>Pas administrateur</h1>
-          </article>
-        </section>
-      )}
+      }
     </div>
   );
 }

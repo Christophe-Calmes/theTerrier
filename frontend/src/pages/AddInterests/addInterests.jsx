@@ -18,7 +18,6 @@ function addInterests() {
     const [dataInterests, setDataInterests] = useState([]);
     const fetchDataInterests = async () => {
       setDataInterests(await getData("http://localhost:5000/interests"))
-      console.info(currentUser);
     }
     useEffect(()=>{
       fetchDataInterests()

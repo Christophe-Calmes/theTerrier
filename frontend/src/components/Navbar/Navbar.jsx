@@ -38,6 +38,7 @@ export default function Navbar() {
               </NavLink>
             )}
             {isAuthenticated && <NavLink to="/addinterests">Add interests</NavLink>}
+            {currentUser?.role === "admin" && <NavLink to="/admin">Admin</NavLink>}
             <div className="user-logout">
               <button onClick={logout}>Logout</button>
             </div>
