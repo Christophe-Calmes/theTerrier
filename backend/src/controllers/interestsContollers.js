@@ -15,7 +15,6 @@ const getAllByValid = (req, res) => {
   models.interests
   .sortingByValidInterests(parseInt(req.params.valid, 10))
   .then((rows) => {
-    console.info(rows);
     res.send(rows[0]);
   })
   .catch((err) => {

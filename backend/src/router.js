@@ -60,7 +60,7 @@ router.get("/interests/valid/:valid", interestsControllers.getAllByValid)
 router.get("/interests/:id", interestsControllers.getById);
 router.post("/interests", interestsControllers.create);
 router.put("/interests/:id", interestsControllers.update);
-router.delete("/interests/:id", verifyToken, interestsControllers.destroy);
+router.delete("/interests/:id", interestsControllers.destroy);
 // Relationship routes
 router.get("/relationship", relationshipControllers.getAll);
 router.get("/relationship/:id", relationshipControllers.getById);

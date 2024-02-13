@@ -15,10 +15,70 @@ function Admin() {
     setDataInterestsNoValid(await fetchDataInterests(0));
   }
 useEffect(()=>{
-
   updateInterest();
-  
 },[])
+const submitUnValide = async (idInterests) => {
+  const updateInterest = dataInterestsValid.find(element => element.id === idInterests);
+  updateInterest.valid = 0;
+  try {
+    const response = await fetch(
+      `http://localhost:5000/interests/${idInterests}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer${localStorage.getItem("jwtToken")}`,
+        },
+        body: JSON.stringify(updateInterest),
+      }
+    );
+    if (response.ok) {
+      setDataInterestsValid(prevState => prevState.filter(element => element !== updateInterest))
+      setDataInterestsNoValid(prevState => [...prevState, updateInterest]);
+      const data = await response.json();
+
+    } else {
+      console.error("Update failed:", response.statusText);
+    }
+  }
+    catch(error){
+      console.error("Error during update interest:", error);
+    }
+
+}
+const submitValide = async (idInterests) => {
+  const updateInterest = dataInterestsNoValid.find(element => element.id === idInterests);
+  updateInterest.valid = 1;
+  try {
+    const response = await fetch(
+      `http://localhost:5000/interests/${idInterests}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer${localStorage.getItem("jwtToken")}`,
+        },
+        body: JSON.stringify(updateInterest),
+      }
+    );
+    if (response.ok) {
+      setDataInterestsValid(prevState => [...prevState, updateInterest]);
+      setDataInterestsNoValid(prevState => prevState.filter(element => element !== updateInterest))
+      const data = await response.json();
+
+    } else {
+      console.error("Update failed:", response.statusText);
+    }
+  }
+    catch(error){
+      console.error("Error during update interest:", error);
+    }
+
+}
+const deleteInterest = (idInterest) => {
+  console.info(idInterest);
+}
+
 
   return (
     <div>
@@ -31,7 +91,8 @@ useEffect(()=>{
               {
                 dataInterestsValid.length > 0 &&
                 dataInterestsValid.map((validInterest)=>(
-                  <li key={validInterest.id}> {validInterest.name} </li>
+                  validInterest.valid === 1 && 
+                  <li key={validInterest.id} onClick={()=> submitUnValide(validInterest.id)} > {validInterest.name} </li>
                 ))
               }
             </ul>
@@ -42,7 +103,11 @@ useEffect(()=>{
               {
                 dataInterestsNoValid.length > 0 &&
                 dataInterestsNoValid.map((validInterest)=>(
-                  <li key={validInterest.id}> {validInterest.name} </li>
+                  validInterest.valid === 0 && 
+                  <><li key={validInterest.id} onClick={() => submitValide(validInterest.id)}>
+                    {validInterest.name}<br />
+                  </li><><button onClick={() => deleteInterest(validInterest.id)}>Delete {validInterest.name} </button></></>
+                
                 ))
               }
             </ul>
