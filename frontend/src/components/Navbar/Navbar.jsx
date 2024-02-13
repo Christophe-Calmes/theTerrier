@@ -21,7 +21,7 @@ export default function Navbar() {
    
         {!isAuthenticated && (
           <NavLink to="/signup">
-            <button>
+            <button data-testid="register-btn">
               Become a Member
               <i className="bi bi-arrow-right" />
             </button>
@@ -32,7 +32,7 @@ export default function Navbar() {
           <div className="user">
             {currentUser && (
               //<NavLink to={`/users/${currentUser.id}`}>
-                <NavLink to={`/profile`}>
+              <NavLink to={`/profile`}>
                 <i className="bi bi-person-circle" />
                 {currentUser.email}
               </NavLink>
