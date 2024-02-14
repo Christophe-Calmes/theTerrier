@@ -2,11 +2,15 @@ import React, { useState, useEffect } from "react";
 import { useAuthContext } from "../context/AuthProvider";
 import styles from "./styles/profile.module.css";
 import { getData } from "../services/utilities";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import * as Yup from 'yup';
 
 function Admin() {
   const { isAdmin } = useAuthContext();
   const [dataInterestsValid, setDataInterestsValid] = useState([]);
   const [dataInterestsNoValid, setDataInterestsNoValid] = useState([])
+  const [refresh, setRefresh] = useState(false);
+
   const fetchDataInterests =  (valid) => {
     return getData(`http://localhost:5000/interests/valid/${valid}`)
   }
@@ -14,9 +18,11 @@ function Admin() {
     setDataInterestsValid(await fetchDataInterests(1));
     setDataInterestsNoValid(await fetchDataInterests(0));
   }
+
 useEffect(()=>{
   updateInterest();
-},[])
+  setRefresh(false)
+},[refresh])
 const submitUnValide = async (idInterests) => {
   const updateInterest = dataInterestsValid.find(element => element.id === idInterests);
   updateInterest.valid = 0;
@@ -76,7 +82,7 @@ const submitValide = async (idInterests) => {
 
 }
 const deleteInterest = async (idInterest) => {
-  console.info(idInterest);
+  const DelInterest = dataInterestsNoValid.find(element => element.id === idInterest);
   try {
     const response = await fetch(
       `http://localhost:5000/interests/${idInterest}`,
@@ -91,7 +97,7 @@ const deleteInterest = async (idInterest) => {
     );
 
     if (response.status === 204) {
-      setDataInterestsNoValid(prevState => prevState.filter(element => element !== updateInterest))
+      setDataInterestsNoValid(prevState => prevState.filter(element => element !== DelInterest))
       } else {
       console.error("Delete failed:", response.statusText);
     }
@@ -101,16 +107,12 @@ const deleteInterest = async (idInterest) => {
 
 }
 
-
-
-
-
   return (
     <div>
+      <h1 className={styles.title1}>Existing interest</h1>
       {isAdmin && (
-        <section>
+        <section className={styles.contenerRow}>
           <article>
-            <h1 className={styles.title1}>Existing interest</h1>
             <ul>
               <li className={styles.textDescription}>Valid interests</li>
               {
@@ -129,13 +131,64 @@ const deleteInterest = async (idInterest) => {
                 dataInterestsNoValid.length > 0 &&
                 dataInterestsNoValid.map((element)=>(
                   element.valid === 0 && 
-                  <><li key={element.id} onClick={() => submitValide(element.id)}>
-                    {element.name}<br />
-                  </li><><button onClick={() => deleteInterest(element.id)}>Delete {element.name} </button></></>
+                  <div key={element.id}>
+                    <li onClick={() => submitValide(element.id)}>
+                    {element.name}
+                    </li >
+                    <button key={element.id + 200} onClick={() => deleteInterest(element.id)}>Delete {element.name} </button>
+                  </div>
                 
                 ))
               }
             </ul>
+          </article>
+          <article>
+            <h1 className={styles.textDescription}>Add new interest</h1>
+              <Formik
+                initialValues={{ name: ''}}
+                validationSchema={Yup.object({
+                  name: Yup.string().min(4).max(42).required("Name is necessary")
+                })}
+                onSubmit={async(values, { resetForm })=>{
+                  const addInterest = {
+                    name: values.name,
+                  }
+                  try {
+                    const response = await fetch(
+                      `http://localhost:5000/interests`,
+                      {
+                        method: "POST",
+                        headers: {
+                          "Content-Type": "application/json",
+                          "Authorization": `Bearer${localStorage.getItem("jwtToken")}`,
+                        },
+                        body: JSON.stringify(addInterest),
+                      }
+                    );
+                    console.info(response)
+                    if (response.status === 201) {
+                      console.warn("Interest creat");
+                      setRefresh(true)
+                   
+                      } else {
+                      console.error("Creat failed:", response.statusText);
+      
+                    }
+                  }
+                  catch (error) {
+                  console.error("Error during creat:", error);
+      
+                }
+                resetForm();
+                }}
+              >
+                <Form>
+                  <label htmlFor="name">Name of new interest</label>
+                  <Field type="text" name="name"/>
+                  <button type="submit">Creat</button>
+                </Form>
+
+              </Formik>
           </article>
         </section>
       )}
