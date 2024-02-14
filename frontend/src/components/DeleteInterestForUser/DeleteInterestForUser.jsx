@@ -22,10 +22,10 @@ const DeleteInterestForUser = ({DataUserInterests, id}) => {
             );
             setUserInterests(newUserInterest);
             } else {
-            console.error("Update failed:", response.statusText);
+            console.error("Delete failed:", response.statusText);
           }
         } catch (error) {
-          console.error("Error during update:", error);
+          console.error("Error during Delete:", error);
         }
       };
   useEffect(()=> {

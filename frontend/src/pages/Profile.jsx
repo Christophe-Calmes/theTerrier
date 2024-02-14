@@ -23,9 +23,6 @@ function Profile() {
   }, [currentUser]);
 
 
-
-
-
   return (
     <div className={styles.contenerRow}>
      <ProfilUser user={user} />
