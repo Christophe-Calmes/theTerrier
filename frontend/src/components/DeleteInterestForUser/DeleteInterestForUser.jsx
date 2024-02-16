@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import styles from "../../pages/styles/profile.module.css";
+const API = import.meta.env.VITE_API_ADRESS;
 const DeleteInterestForUser = ({DataUserInterests, id}) => {
     const [userInterests, setUserInterests] = useState([]);
     const deleteInterest = async (idToDelete) => {
         try {
           const response = await fetch(
-            `http://localhost:5000/haveinterests/${id}`,
+            `${API}/haveinterests/${id}`,
             {
               method: "DELETE",
               headers: {

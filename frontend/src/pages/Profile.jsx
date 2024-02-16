@@ -8,6 +8,7 @@ import UpdateMyProfilUser from "../components/UpdateMyProfil/UpdateMyProfil";
 import AboutMe from "../components/AboutMe/AboutMe";
 
 
+
 function Profile() {
   const { currentUser } = useAuthContext();
   const [user, setUser] = useState(null);

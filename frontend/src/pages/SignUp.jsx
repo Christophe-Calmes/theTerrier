@@ -5,6 +5,7 @@ import signupIMG from "../assets/images/signup.png";
 
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+const API = import.meta.env.VITE_API_ADRESS;
 
 import { format } from 'date-fns';
 
@@ -32,7 +33,7 @@ const SignUp = () => {
     console.log(objet)
 
     try {
-      const response = await fetch("http://localhost:5000/users", {
+      const response = await fetch(`${API}/users`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

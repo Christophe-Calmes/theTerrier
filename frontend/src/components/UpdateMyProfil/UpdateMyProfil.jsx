@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { object, string } from "yup";
 import Modal from "react-modal";
+const API = import.meta.env.VITE_API_ADRESS;
 const modalFormStyle = {
     content: {
       top: "50%",
@@ -76,7 +77,7 @@ function UpdateMyProfilUser({ user }) {
 
            try {
              const response = await fetch(
-               `http://localhost:5000/users/update/${user.id}`,
+               `${API}/users/update/${user.id}`,
                {
                  method: "PUT",
                  headers: {

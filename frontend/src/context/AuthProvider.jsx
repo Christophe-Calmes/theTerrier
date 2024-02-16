@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
+const API = import.meta.env.VITE_API_ADRESS;
 
 // create context
 export const AuthContext = createContext(null);
@@ -24,7 +25,7 @@ function AuthProvider({ children }) {
 
   const checkAndRefeshJwt = async (jwtToken) => {
     console.warn("checkAndRefeshJwt");
-    const url = "http://localhost:5000/checkAndRefeshJwt";
+    const url = `${API}/checkAndRefeshJwt`;
     try {
       const response = await fetch(`${url}`, {
         method: "POST",

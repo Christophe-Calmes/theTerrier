@@ -33,6 +33,7 @@
   "dependencies": {
     "argon2": "^0.31.2",
     "date-fns": "^3.3.1",
+    "dotenv": "^16.4.4",
     "react-datepicker": "^4.25.0",
     "react-modal": "^3.16.1"
   }

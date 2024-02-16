@@ -3,6 +3,7 @@ import { Formik, Form, ErrorMessage, Field } from "formik";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import "./SignIn.scss";
+const API = import.meta.env.VITE_API_ADRESS;
 
 function SignIn() {
   const { currentUser, isAuthenticated, login } = useAuthContext();
@@ -17,7 +18,7 @@ function SignIn() {
   const handleLogin = async (values) => {
     console.info("onSubmit", values);
     try {
-      const response = await fetch("http://localhost:5000/login", {
+      const response = await fetch(`${API}/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

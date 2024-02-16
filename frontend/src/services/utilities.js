@@ -1,3 +1,5 @@
+const API = import.meta.env.VITE_API_ADRESS;
+
 export const Age = (Birthday) => {
   const isValidDate = !isNaN(new Date(Birthday).getTime());
   if (!isValidDate) {
@@ -23,7 +25,7 @@ export const Age = (Birthday) => {
 };
 export const getUserData = async (id) => {
   try {
-    const response = await fetch(`http://localhost:5000/users/${id}`);
+    const response = await fetch(`${API}/users/${id}`);
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
