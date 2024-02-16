@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import style from './suggestion.module.css'
+const API = import.meta.env.VITE_API_ADRESS;
 
 const Suggestions = () => {
   const [profiles, setProfiles] = useState([
@@ -18,7 +19,7 @@ const Suggestions = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await fetch("http://localhost:5000/users", {
+      const response = await fetch(`${API}/users`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

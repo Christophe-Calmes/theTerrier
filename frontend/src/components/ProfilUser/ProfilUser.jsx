@@ -2,6 +2,7 @@ import styles from "../../pages/styles/profile.module.css";
 import { Age } from "../../services/utilities";
 import DeleteInterestForUser from "../DeleteInterestForUser/DeleteInterestForUser"
 
+
 const profilUser = ({ user }) => {
 
 

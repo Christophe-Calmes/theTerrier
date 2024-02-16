@@ -3,6 +3,7 @@ import DeleteInterestForUser from "../../components/DeleteInterestForUser/Delete
 import {  getData, getUserData } from "../../services/utilities";
 import React, { useState, useEffect } from "react";
 import styles from "../styles/profile.module.css";
+const API = import.meta.env.VITE_API_ADRESS;
 function addInterests() {
   
     const { currentUser } = useAuthContext();
@@ -17,7 +18,7 @@ function addInterests() {
     }
     const [dataInterests, setDataInterests] = useState([]);
     const fetchDataInterests = async () => {
-      setDataInterests(await getData("http://localhost:5000/interests"))
+      setDataInterests(await getData(`${API}/interests`))
     }
     useEffect(()=>{
       fetchDataInterests()
@@ -27,7 +28,7 @@ function addInterests() {
       const objet = {};
       objet.interest_id = idInterest;
       try {
-        const response = await fetch(`http://localhost:5000/haveinterests/${currentUser.id}`, {
+        const response = await fetch(`${API}/haveinterests/${currentUser.id}`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
